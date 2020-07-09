@@ -38,6 +38,8 @@
     <link href="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/extra-libs/calendar/calendar.css') }}" rel="stylesheet" />
 
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
     <div id="app">
@@ -213,7 +215,7 @@
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-elements.html" aria-expanded="false"><i class="mdi mdi-pencil"></i><span class="hide-menu">Elements</span></a></li>
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-move-resize-variant"></i><span class="hide-menu">Addons </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
-                                            <li class="sidebar-item"><a href="{{route('home2')}}" class="sidebar-link"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu"> Dashboard-2 </span></a></li>
+                                            <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu"> Dashboard-2 </span></a></li>
                                             <li class="sidebar-item"><a href="pages-gallery.html" class="sidebar-link"><i class="mdi mdi-multiplication-box"></i><span class="hide-menu"> Gallery </span></a></li>
                                             <li class="sidebar-item"><a href="pages-calendar.html" class="sidebar-link"><i class="mdi mdi-calendar-check"></i><span class="hide-menu"> Calendar </span></a></li>
                                             <li class="sidebar-item"><a href="pages-invoice.html" class="sidebar-link"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu"> Invoice </span></a></li>
@@ -249,13 +251,10 @@
             </div>
         </main>
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-
         <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
         <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
         <!--Wave Effects -->
@@ -264,8 +263,6 @@
         <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
         <!--Custom JavaScript -->
         <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-        <!--This page JavaScript -->
-        <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js') }}"></script> -->
         <!-- Charts js Files -->
         <script src="{{ asset('assets/libs/flot/excanvas.js') }}"></script>
         <script src="{{ asset('assets/libs/flot/jquery.flot.js') }}"></script>
@@ -275,7 +272,6 @@
         <script src="{{ asset('assets/libs/flot/jquery.flot.crosshair.js') }}"></script>
         <script src="{{ asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
         <script src="{{ asset('dist/js/pages/chart/chart-page-init.js') }} "></script>
-
         <!-- this page js -->
         <script src="{{ asset('dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
         <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
