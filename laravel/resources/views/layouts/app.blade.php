@@ -43,6 +43,11 @@
     <div id="app">
         <main>
             <div id="main-wrapper">
+                @guest
+
+                    <div class="py-4"></div>
+
+                @else
                 <header class="topbar" data-navbarbg="skin5">
                     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                         <div class="navbar-header" data-logobg="skin5">
@@ -166,6 +171,9 @@
                                         document.getElementById('logout-form').submit();">
                                             <i class="fa fa-power-off m-r-5 m-l-5"></i> {{ __('Uitloggen') }}
                                         </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                         <div class="dropdown-divider"></div>
                                         <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded ml-3">View Profile</a></div>
                                     </div>
@@ -214,9 +222,7 @@
                                 </li>
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Authentication </span></a>
                                     <ul aria-expanded="false" class="collapse  first-level">
-                                        <li class="sidebar-item"><a href="authentication-login.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Login </span></a></li>
-                                        <li class="sidebar-item"><a href="authentication-register.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Register </span></a></li>
-                                    </ul>
+                                        <li class="sidebar-item"><a href="authentication-login.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Login </span></a></li></ul>
                                 </li>
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-alert"></i><span class="hide-menu">Errors </span></a>
                                     <ul aria-expanded="false" class="collapse  first-level">
@@ -232,7 +238,7 @@
                     </div>
                     <!-- End Sidebar scroll-->
                 </aside>
-
+                @endguest
                 @yield('content')
 
                 <footer class="footer text-center">
