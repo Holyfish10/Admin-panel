@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
-    <!-- Custom CSS -->
-    <link href="../../assets/libs/flot/css/float-chart.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="../../dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
-
-<body>
+@section('content')
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -48,27 +25,27 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.blade.php">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <img src="../../assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-                           
+
                         </b>
                         <!--End Logo icon -->
                          <!-- Logo text -->
                         <span class="logo-text">
                              <!-- dark Logo text -->
                              <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" />
-                            
+
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-                            
+
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
@@ -95,7 +72,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              <span class="d-none d-md-block">Create New <i class="fa fa-angle-down"></i></span>
-                             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
+                             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -148,8 +125,8 @@
                                                 <div class="d-flex no-block align-items-center p-10">
                                                     <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5> 
-                                                        <span class="mail-desc">Just a reminder that event</span> 
+                                                        <h5 class="m-b-0">Event today</h5>
+                                                        <span class="mail-desc">Just a reminder that event</span>
                                                     </div>
                                                 </div>
                                             </a>
@@ -158,8 +135,8 @@
                                                 <div class="d-flex no-block align-items-center p-10">
                                                     <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Settings</h5> 
-                                                        <span class="mail-desc">You can customize this template</span> 
+                                                        <h5 class="m-b-0">Settings</h5>
+                                                        <span class="mail-desc">You can customize this template</span>
                                                     </div>
                                                 </div>
                                             </a>
@@ -168,8 +145,8 @@
                                                 <div class="d-flex no-block align-items-center p-10">
                                                     <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Pavan kumar</h5> 
-                                                        <span class="mail-desc">Just see the my admin!</span> 
+                                                        <h5 class="m-b-0">Pavan kumar</h5>
+                                                        <span class="mail-desc">Just see the my admin!</span>
                                                     </div>
                                                 </div>
                                             </a>
@@ -178,8 +155,8 @@
                                                 <div class="d-flex no-block align-items-center p-10">
                                                     <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Luanch Admin</h5> 
-                                                        <span class="mail-desc">Just see the my new admin!</span> 
+                                                        <h5 class="m-b-0">Luanch Admin</h5>
+                                                        <span class="mail-desc">Just see the my new admin!</span>
                                                     </div>
                                                 </div>
                                             </a>
@@ -228,7 +205,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.blade.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tables</span></a></li>
@@ -498,7 +475,7 @@
                                         <h6 class="font-medium">James Anderson</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">April 14, 2016</span> 
+                                            <span class="text-muted float-right">April 14, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -512,7 +489,7 @@
                                         <h6 class="font-medium">Michael Jorden</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">May 10, 2016</span> 
+                                            <span class="text-muted float-right">May 10, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -526,7 +503,7 @@
                                         <h6 class="font-medium">Johnathan Doeting</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">August 1, 2016</span> 
+                                            <span class="text-muted float-right">August 1, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -807,7 +784,7 @@
                                         <h6 class="font-medium">James Anderson</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">April 14, 2016</span> 
+                                            <span class="text-muted float-right">April 14, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -821,7 +798,7 @@
                                         <h6 class="font-medium">Michael Jorden</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">May 10, 2016</span> 
+                                            <span class="text-muted float-right">May 10, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -835,7 +812,7 @@
                                         <h6 class="font-medium">Johnathan Doeting</h6>
                                         <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right">August 1, 2016</span> 
+                                            <span class="text-muted float-right">August 1, 2016</span>
                                             <button type="button" class="btn btn-cyan btn-sm">Edit</button>
                                             <button type="button" class="btn btn-success btn-sm">Publish</button>
                                             <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -983,30 +960,28 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <!--Wave Effects -->
-    <script src="../../dist/js/waves.js"></script>
+    <script src="{{ asset('dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="../../dist/js/sidebarmenu.js"></script>
+    <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="../../dist/js/custom.min.js"></script>
+    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
     <!--This page JavaScript -->
-    <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js') }}"></script> -->
     <!-- Charts js Files -->
-    <script src="../../assets/libs/flot/excanvas.js"></script>
-    <script src="../../assets/libs/flot/jquery.flot.js"></script>
-    <script src="../../assets/libs/flot/jquery.flot.pie.js"></script>
-    <script src="../../assets/libs/flot/jquery.flot.time.js"></script>
-    <script src="../../assets/libs/flot/jquery.flot.stack.js"></script>
-    <script src="../../assets/libs/flot/jquery.flot.crosshair.js"></script>
-    <script src="../../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="../../dist/js/pages/chart/chart-page-init.js"></script>
+    <script src="{{ asset('assets/libs/flot/excanvas.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot/jquery.flot.crosshair.js') }}"></script>
+    <script src="{{ asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/chart/chart-page-init.js') }} "></script>
 
-</body>
-
-</html>
+@endsection
