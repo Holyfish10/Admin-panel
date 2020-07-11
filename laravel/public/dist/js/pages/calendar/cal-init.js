@@ -38,7 +38,7 @@
             var $this = this;
             var form = $("<form></form>");
             form.append("<label>Change event name</label>");
-            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Opslaan</button></span></div>");
             $this.$modal.modal({
                 backdrop: 'static'
             });
@@ -85,7 +85,7 @@
             var today = new Date($.now());
 
             var defaultEvents = [
-              
+
             ];
 
             var $this = this;
@@ -94,11 +94,11 @@
                 /* If we want to split day time each 15minutes */
                 minTime: '08:00:00',
                 maxTime: '19:00:00',
-                defaultView: 'month',
+                defaultView: 'timeGridWeek',
                 handleWindowResize: true,
 
                 header: {
-                    left: 'prev,next today',
+                    left: 'prev,next,today',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
@@ -113,7 +113,7 @@
 
             });
 
-           
+
         },
 
         //init CalendarApp
@@ -123,6 +123,5 @@
 
 //initializing CalendarApp
 $(window).on('load', function() {
-
     $.CalendarApp.init()
 });

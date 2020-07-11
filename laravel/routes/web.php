@@ -2,8 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@home')->name('home');
-Route::get('/form-basic', 'HomeController@formBasic')->name('form-basic');
-
-//Disable register
+//Register false
 Auth::routes(['register' => false]);
+
+//HomeController url's
+Route::get('/','HomeController@home')->name('home');
+
+//Calendar
+Route::post('/create','CalendarController@create');
+Route::post('/update','CalendarController@update');
+Route::post('/delete','CalendarController@destroy');
+
