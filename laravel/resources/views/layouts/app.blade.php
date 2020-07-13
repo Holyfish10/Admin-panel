@@ -56,7 +56,7 @@
                         <div class="navbar-header" data-logobg="skin5">
                             <!-- This is for the sidebar toggle which is visible on mobile only -->
                             <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                            <a class="navbar-brand" href="index.blade.php">
+                            <a class="navbar-brand" href="{{ route('home') }}">
                                 <!-- Logo icon -->
                                 <b class="logo-icon p-l-10">
                                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -130,6 +130,14 @@
                             <!-- Sidebar navigation-->
                             <nav class="sidebar-nav">
                                 <ul id="sidebarnav" class="p-t-30 in">
+
+                                    <!-- Posts -->
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Nieuwsberichten </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+                                            <li class="sidebar-item"><a href="{{ route('posts.index') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Index </span></a></li>
+                                        </ul>
+                                    </li>
+
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('home')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>

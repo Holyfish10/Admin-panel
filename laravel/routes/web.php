@@ -13,3 +13,6 @@ Route::post('/create','CalendarController@create');
 Route::post('/update','CalendarController@update');
 Route::post('/delete','CalendarController@destroy');
 
+//PostsController
+Route::resource('posts', 'PostsController');
+

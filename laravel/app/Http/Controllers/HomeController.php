@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Event;
 use App\User;
 use Illuminate\Support\Carbon;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -29,6 +30,7 @@ class HomeController extends Controller
     {
 
         $users = User::all();
+        $posts = Post::all();
         $events = Event::whereDate('start', Carbon::today())->get();
 
         if(request()->ajax())
@@ -41,7 +43,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home', compact('users', 'events'));
+        return view('home', compact('users', 'events', 'posts'));
     }
 
 }
