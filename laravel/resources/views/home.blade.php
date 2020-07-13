@@ -68,7 +68,7 @@
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-info text-center">
-                                        <h1 class="font-light text-white"><i class="fas fa-users"></i>/h1>
+                                        <h1 class="font-light text-white"><i class="fas fa-users"></i>
                                         <h6 class="text-white">120 Klanten</h6>
                                     </div>
                                 </div>
