@@ -23,6 +23,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -212,8 +213,8 @@
         <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('assets/libs/moment/min/moment.min.js') }}"></script>
         <script src="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/fullcalendar/dist/locale/nl.js') }}"></script>
         <script src="{{ asset('dist/js/pages/calendar/cal-init.js') }}"></script>
-
 
     </div>
 </body>

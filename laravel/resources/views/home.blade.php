@@ -295,6 +295,10 @@
 <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
+<script src="{{ asset('assets/libs/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+
 
 
 <script>
@@ -308,6 +312,8 @@
         });
 
         var calendar = $('#calendar').fullCalendar({
+            locale: 'nl',
+
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -316,6 +322,7 @@
             events: SITEURL + "{{route('home')}}",
             displayEventTime: true,
             editable: true,
+
             eventRender: function (event, element, view) {
                 if (event.allDay === 'true') {
                     event.allDay = true;
