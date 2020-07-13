@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Event;
+use App\User;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -25,6 +27,10 @@ class HomeController extends Controller
      */
     public function home()
     {
+
+        $users = User::all();
+        $events = Event::whereDate('start', Carbon::today())->get();
+
         if(request()->ajax())
         {
             $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
@@ -35,7 +41,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home');
+        return view('home', compact('users', 'events'));
     }
 
 }

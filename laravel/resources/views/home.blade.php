@@ -27,47 +27,49 @@
                                 <div class="card card-hover">
                                     <div class="box bg-cyan text-center">
                                         <h1 class="font-light text-white"><i class="fa fa-user"></i></h1>
-                                        <h6 class="text-white">1338 Users</h6>
+                                        <h6 class="text-white">{{$users->count()}} Users</h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-success text-center">
-                                        <h1 class="font-light text-white"><i class="fa fa-plus"></i></h1>
-                                        <h6 class="text-white">120 New Users</h6>
+                                        <h1 class="font-light text-white"><i class="far fa-calendar-check"></i></h1>
+                                        <h6 class="text-white">
+                                            {{$events->count()}} Afspraken vandaag
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-warning text-center">
-                                        <h1 class="font-light text-white"><i class="fa fa-plus"></i></h1>
-                                        <h6 class="text-white">120 New Users</h6>
+                                        <h1 class="font-light text-white"><i class="far fa-envelope"></i></h1>
+                                        <h6 class="text-white">120 Berichten</h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-danger text-center">
-                                        <h1 class="font-light text-white"><i class="fa fa-plus"></i></h1>
-                                        <h6 class="text-white">120 New Users</h6>
+                                        <h1 class="font-light text-white"><i class="fab fa-uikit"></i></h1>
+                                        <h6 class="text-white">120 Projecten</h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-primary text-center">
-                                        <h1 class="font-light text-white"><i class="fa fa-plus"></i></h1>
-                                        <h6 class="text-white">120 New Users</h6>
+                                        <h1 class="font-light text-white"><i class="fas fa-tasks"></i></h1>
+                                        <h6 class="text-white">120 Dingen te doen</h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card card-hover">
                                     <div class="box bg-info text-center">
-                                        <h1 class="font-light text-white"><i class="fa fa-plus"></i></h1>
-                                        <h6 class="text-white">120 New Users</h6>
+                                        <h1 class="font-light text-white"><i class="fas fa-users"></i>/h1>
+                                        <h6 class="text-white">120 Klanten</h6>
                                     </div>
                                 </div>
                             </div>
@@ -132,68 +134,55 @@
                  <!-- Card -->
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">To Do List</h4>
-                        <div class="todo-widget scrollable" style="height:450px;">
-                            <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-                                <li class="list-group-item todo-item" data-role="task">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                                        <label class="custom-control-label todo-label" for="customCheck">
-                                            <span class="todo-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span> <span class="badge badge-pill badge-danger float-right">Today</span>
-                                        </label>
-                                    </div>
-                                    <ul class="list-style-none assignedto">
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/1.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Steave"></li>
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/2.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jessica"></li>
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/3.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/4.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item todo-item" data-role="task">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label todo-label" for="customCheck1">
-                                            <span class="todo-desc">Lorem Ipsum is simply dummy text of the printing</span><span class="badge badge-pill badge-primary float-right">1 week </span>
-                                        </label>
-                                    </div>
-                                    <div class="item-date"> 26 jun 2017</div>
-                                </li>
-                                <li class="list-group-item todo-item" data-role="task">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label todo-label" for="customCheck2">
-                                            <span class="todo-desc">Give Purchase report to</span> <span class="badge badge-pill badge-info float-right">Yesterday</span>
-                                        </label>
-                                    </div>
-                                    <ul class="list-style-none assignedto">
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/3.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/4.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item todo-item" data-role="task">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                        <label class="custom-control-label todo-label" for="customCheck3">
-                                            <span class="todo-desc">Lorem Ipsum is simply dummy text of the printing </span> <span class="badge badge-pill badge-warning float-right">2 weeks</span>
-                                        </label>
-                                    </div>
-                                    <div class="item-date"> 26 jun 2017</div>
-                                </li>
-                                <li class="list-group-item todo-item" data-role="task">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                        <label class="custom-control-label todo-label" for="customCheck4">
-                                            <span class="todo-desc">Give Purchase report to</span> <span class="badge badge-pill badge-info float-right">Yesterday</span>
-                                        </label>
-                                    </div>
-                                    <ul class="list-style-none assignedto">
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/3.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Priyanka"></li>
-                                        <li class="assignee"><img class="rounded-circle" width="40" src="../../assets/images/users/4.jpg" alt="user" data-toggle="tooltip" data-placement="top" title="" data-original-title="Selina"></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        <h5 class="card-title m-b-0">Tasks</h5>
                     </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Making The New Suit</td>
+                            <td class="text-success">Progress</td>
+                            <td>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
+                                    <i class="mdi mdi-check"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    </i><i class="mdi mdi-close"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Luanch My New Site</td>
+                            <td class="text-warning">Pending</td>
+                            <td>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
+                                    <i class="mdi mdi-check"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    </i><i class="mdi mdi-close"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Maruti Excellant Theme</td>
+                            <td class="text-danger">Cancled</td>
+                            <td>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
+                                    <i class="mdi mdi-check"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    </i><i class="mdi mdi-close"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="col-md-6">
