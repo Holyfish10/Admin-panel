@@ -311,7 +311,7 @@
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,basicWeek,basicDay'
+                right: 'month,agendaWeek,agendaDay'
             },
             events: SITEURL + "{{route('home')}}",
             displayEventTime: true,
@@ -325,6 +325,9 @@
             },
             selectable: true,
             selectHelper: true,
+            defaultView: "agendaWeek",
+            timeFormat: 'H:mm',
+
             select: function (start, end, allDay) {
                 var title = prompt('Afspraak toevoegen');
 
@@ -365,6 +368,21 @@
                     }
                 });
             },
+
+            eventResize: function(info) {
+                var start = $.fullCalendar.formatDate(info.start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(info.end, "Y-MM-DD HH:mm:ss");
+
+                $.ajax({
+                    url: SITEURL + '/update',
+                    data: 'title=' + info.title + '&start=' + start + '&end=' + end + '&id=' + info.id,
+                    type: "POST",
+                    success: function (response) {
+                        displayMessage("Succesvol geüpdate");
+                    }
+                });
+            },
+
             eventClick: function (event) {
                 var deleteMsg = confirm("Weet je zeker dat je dit wilt verwijderen?");
                 if (deleteMsg) {
