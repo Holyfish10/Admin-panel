@@ -37,7 +37,8 @@
         @if(count($posts) > 0)
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title m-b-0">Nieuwsberichten</h5>
+                <h5 class="card-title  d-inline mt-5">Nieuwsberichten</h5>
+                <a href="{{ route('posts.create') }}" class="btn btn-success float-right">Bericht aanmaken</a>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -69,7 +70,17 @@
                             <td>{!! strtolower(substr(strip_tags($post->message), 0, 100)) !!}</td>
                             <td>{{ $post->created_at->format('d-m-Y') }}</td>
                             <td>{{ $post->user->name }}</td>
-                            <td></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="" class="btn btn-light"><i class="mdi mdi-replay"></i></a>
+                                    <a href="{{ url('/posts/'.$post->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                    <form action="{{ action('PostsController@destroy', $post->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
