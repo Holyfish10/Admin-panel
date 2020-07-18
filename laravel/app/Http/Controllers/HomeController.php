@@ -30,7 +30,8 @@ class HomeController extends Controller
     {
 
         $users = User::all();
-        $posts = Post::all();
+        $post = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
         $events = Event::whereDate('start', Carbon::today())->get();
 
         if(request()->ajax())
@@ -43,7 +44,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home', compact('users', 'events', 'posts'));
+        return view('home', compact('users', 'events', 'post', 'posts'));
     }
 
 }

@@ -17,6 +17,8 @@
         </div>
     </div>
 
+    <div class="mb-3 w-75 col-12 mx-auto">@include('layouts.messages')</div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -45,7 +47,7 @@
                                 <div class="card card-hover">
                                     <div class="box bg-warning text-center">
                                         <h1 class="font-light text-white"><i class="far fa-envelope"></i></h1>
-                                        <h6 class="text-white">120 Berichten</h6>
+                                        <h6 class="text-white">{{$post->count()}} Nieuwsberichten</h6>
                                     </div>
                                 </div>
                             </div>
@@ -87,22 +89,34 @@
                         <h4 class="card-title">Laatste nieuws</h4>
                     </div>
                     <div class="comment-widgets scrollable">
+                        @if(count($posts) > 0)
                         @foreach($posts as $post)
                         <div class="d-flex flex-row comment-row">
                             <div class="p-2"><img src="../../assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></div>
                             <div class="comment-text active w-100">
                                 <h6 class="font-medium">{{$post->user->name}}</h6>
                                 <span class="m-b-15 d-block font-bold mb-2">{{ Str::limit($post->title, 30) }} </span>
-                                <span class="m-b-15 d-block mb-3">{{ Str::limit($post->message, 100) }}</span>
+                                <span class="m-b-15 d-block mb-3">{!! strtolower(substr(strip_tags($post->message), 0, 100)) !!}</span>
                                 <div class="comment-footer">
                                     <span class="text-muted float-right">{{$post->created_at->format('d-m-Y')}}</span>
-                                    <button type="button" class="btn btn-cyan btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-success btn-sm">Publish</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    <a href="{{url('/posts/'.$post->id.'/edit')}}"><button type="button" class="btn btn-cyan btn-sm">Bewerken</button></a>
+                                    <button type="button" class="btn btn-success btn-sm">Publiceren</button>
+                                    <form action="{{ action('PostsController@destroy', $post->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Verwijderen</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         @endforeach
+
+                            <div class="mt-3 row justify-content-center">
+                                {{$posts->links()}}
+                            </div>
+                        @else
+                            <p class="text-center">Er zijn nog geen berichten aangemaakt!</p>
+                        @endif
                     </div>
                 </div>
                  <!-- Card -->
@@ -255,15 +269,8 @@
     </div>
 </div>
 
-<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
-<script src="{{ asset('assets/libs/moment/min/moment.min.js') }}"></script>
-<script src="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
 
-
-
+@section('scripts')
 <script>
     $(document).ready(function () {
 
@@ -378,4 +385,6 @@
         setInterval(function(e) { $('.success').fadeOut(); }, 1000);
     }
 </script>
+@endsection
+
 @endsection
