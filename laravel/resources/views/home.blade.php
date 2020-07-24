@@ -173,12 +173,6 @@
                 </table>
             </div>
         </div>
-
-        <div class="col-6">
-            <timer></timer>
-        </div>
-
-
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
