@@ -2019,7 +2019,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -59927,9 +59926,7 @@ var staticRenderFns = [
         [_vm._v("×")]
       ),
       _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Record tijd")]),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-plus" })
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Record tijd")])
     ])
   },
   function() {
