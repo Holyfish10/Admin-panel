@@ -8,6 +8,7 @@ use App\Event;
 use App\User;
 use Illuminate\Support\Carbon;
 use App\Post;
+use App\Projects;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,12 @@ class HomeController extends Controller
         }
 
         return view('home', compact('users', 'events', 'post', 'posts'));
+    }
+
+    public function projects()
+    {
+        $count = Projects::all();
+        return view('projects.index', compact('count'));
     }
 
 }

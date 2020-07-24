@@ -32,10 +32,10 @@
             </div>
         </div>
 
-        <style>*{font-family: "Nunito-sans", sans-serif}</style>
+
 
         @if(count($posts) > 0)
-        <div class="card">
+        <div class="card" style="font-family: Nunito-sans, sans-serif">
             <div class="card-body">
                 <h5 class="card-title  d-inline mt-5">Nieuwsberichten</h5>
                 <a href="{{ route('posts.create') }}" class="btn btn-success float-right">Bericht aanmaken</a>

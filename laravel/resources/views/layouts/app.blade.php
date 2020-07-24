@@ -51,22 +51,13 @@
                 <header class="topbar" data-navbarbg="skin5">
                     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                         <div class="navbar-header" data-logobg="skin5">
-                            <!-- This is for the sidebar toggle which is visible on mobile only -->
                             <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                             <a class="navbar-brand" href="{{ route('home') }}">
-                                <!-- Logo icon -->
                                 <b class="logo-icon p-l-10">
-                                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                                    <!-- Dark Logo icon -->
                                     <img src="../../assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-
                                 </b>
-                                <!--End Logo icon -->
-                                <!-- Logo text -->
                                 <span class="logo-text">
-                                 <!-- dark Logo text -->
                                  <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" />
-
                             </span>
                             </a>
                             <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
@@ -136,7 +127,7 @@
                                             <li class="sidebar-item"><a href="{{ route('posts.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
-
+                                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('timer')}}" aria-expanded="false"><i class="fas fa-stopwatch"></i><span class="hide-menu">Uren tracker</span></a></li>
 {{--                                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>--}}
 {{--                                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>--}}
 {{--                                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tables</span></a></li>--}}
@@ -196,12 +187,8 @@
     </div>
 
         <!-- Scripts -->
-{{--        <script src="{{ asset('js/app.js') }}" defer></script>--}}
+        <script src="{{asset('/js/app.js')}}"></script>
 
-        <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
         <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
         <!--Wave Effects -->
@@ -232,5 +219,7 @@
         <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js') }}"></script>
 
         @yield('scripts')
+
+
 </body>
 </html>
