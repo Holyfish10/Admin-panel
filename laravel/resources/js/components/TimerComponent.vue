@@ -29,18 +29,43 @@
                                     <span v-if="showTimerForProject(project, timer)" style="margin-right: 10px">
                                         <strong>{{ activeTimerString }}</strong>
                                     </span>
+
                                     <span v-else style="margin-right: 10px">
                                         <strong>{{ calculateTimeSpent(timer) }}</strong>
+<!--                                        <button data-dismiss="modal" @click="restartTimer(project, timer)" type="submit" class="btn btn-default btn-primary"><i class="fas fa-plus"></i> Start</button>-->
                                     </span>
 
                                     <button v-if="showTimerForProject(project, timer)" class="btn btn-sm btn-danger" @click="stopTimer()">
                                         <i class="fas fa-stop"></i>
                                     </button>
+
+                                    <button data-toggle="modal" data-target="#testUpdate" class="btn btn-primary" @click="testUpdate()">test</button>
+
                                 </div>
                             </li>
                         </ul>
                         <p v-else>Er is nog niks bijgehouden voor "{{ project.name }}". Klik op het '+' icoon om te starten.</p>
                     </div>
+                </div>
+
+                <!-- Test -->
+
+                <div class="modal fade" id="testUpdate" role="dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Test thing</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input v-model="testUpdate" type="text" class="form-control" id="test" placeholder="test update">
+                                {{testUpdate}}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" v-on:click="testUpdate()" type="submit" class="btn btn-default btn-primary"><i class="fas fa-plus"></i> updaten</button>
+                        </div>
+                </div>
                 </div>
 
                 <!-- Create Timer Modal -->
@@ -53,7 +78,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <input v-model="newTimerName" type="text" class="form-control" id="usrname" placeholder="Waarvoor ben je aan het werk?">
+                                    <input v-model="newTimerName" type="text" class="form-control" id="usrname2" placeholder="Waarvoor ben je aan het werk?">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -116,7 +141,9 @@
                 newTimerName: '',
                 newProjectName: '',
                 activeTimerString: 'Berekenen...',
+                activeTimerString: 'Berekenen...',
                 counter: { seconds: 0, timer: null},
+                testUpdate: '',
             }
         },
         methods: {
@@ -148,7 +175,14 @@
                     )
                     return `${time.hours} Uur | ${time.minutes} minuten | ${time.seconds} seconden`
                 }
-                return ''
+                const started = moment(timer.created_at)
+                const stopped = moment(timer.updated_at);
+
+                const time = this._readableTimeFromSeconds(
+                    parseInt(moment.duration(stopped.diff(started)).asSeconds())
+                )
+
+                return `${time.hours} Uur | ${time.minutes} minuten | ${time.seconds} seconden`
             },
             /**
              * Determines if there is an active timer and whether it belongs to the project
@@ -157,7 +191,6 @@
             showTimerForProject: function (project, timer) {
                 return this.counter.timer &&
                        this.counter.timer.id === timer.id
-
             },
             /**
              * Start counting the timer. Tick tock.
@@ -197,6 +230,43 @@
                         this.activeTimerString = 'Berekenen...'
                     })
             },
+            updateTimer: function () {
+                window.axios.post(`/projects/${this.counter.timer.id}/timers/update`)
+                    .then(response => {
+                        // Loop through the projects and get the right project...
+                        this.projects.forEach(project => {
+                            if (project.id) {
+                                // Loop through the timers of the project and set the `stopped_at` time
+                                return project.timers.forEach(timer => {
+                                    if (timer.id === parseInt(this.counter.timer.id)) {
+                                        return timer.stopped_at = response.data.stopped_at
+                                    }
+                                })
+                            }
+                        });
+                        // Stop the ticker
+                        clearInterval(this.counter.ticker)
+                        // Reset the counter and timer string
+                        this.counter = { seconds: 0, timer: null }
+                        this.activeTimerString = 'Berekenen...'
+                    })
+            },
+            // restartTimer: function (project, timer) {
+            //     if (timer.stopped_at) {
+            //         const started = moment(timer.created_at)
+            //         const stopped = moment(timer.stopped_at)
+            //         const vm = this
+            //
+            //         vm.counter.timer = timer
+            //         vm.counter.timer.project = project
+            //         vm.counter.seconds = parseInt(moment.duration(stopped.diff(started)).asSeconds())
+            //         vm.counter.ticker = setInterval(() => {
+            //             const time = vm._readableTimeFromSeconds(++vm.counter.seconds)
+            //             return vm.activeTimerString = `${time.hours} Uur | ${time.minutes}:${time.seconds}`
+            //         }, 1000)
+            //     }
+            //     return ''
+            // },
             /**
              * Create a new timer.
              */
@@ -216,6 +286,9 @@
                     .then(response => this.projects.push(response.data))
                 this.newProjectName = ''
             }
+        },
+        testUpdate: function() {
+            alert('test')
         },
         created() {
             window.axios.get('/projects').then(response => {

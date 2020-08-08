@@ -1910,6 +1910,33 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2022,16 +2049,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       projects: null,
       newTimerName: '',
       newProjectName: '',
-      activeTimerString: 'Berekenen...',
-      counter: {
-        seconds: 0,
-        timer: null
-      }
-    };
+      activeTimerString: 'Berekenen...'
+    }, _defineProperty(_ref, "activeTimerString", 'Berekenen...'), _defineProperty(_ref, "counter", {
+      seconds: 0,
+      timer: null
+    }), _defineProperty(_ref, "testUpdate", ''), _ref;
   },
   methods: {
     /**
@@ -2058,15 +2086,21 @@ __webpack_require__.r(__webpack_exports__);
      */
     calculateTimeSpent: function calculateTimeSpent(timer) {
       if (timer.stopped_at) {
-        var started = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.created_at);
-        var stopped = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.stopped_at);
+        var _started = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.created_at);
 
-        var time = this._readableTimeFromSeconds(parseInt(moment__WEBPACK_IMPORTED_MODULE_0___default.a.duration(stopped.diff(started)).asSeconds()));
+        var _stopped = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.stopped_at);
 
-        return "".concat(time.hours, " Uur | ").concat(time.minutes, " minuten | ").concat(time.seconds, " seconden");
+        var _time = this._readableTimeFromSeconds(parseInt(moment__WEBPACK_IMPORTED_MODULE_0___default.a.duration(_stopped.diff(_started)).asSeconds()));
+
+        return "".concat(_time.hours, " Uur | ").concat(_time.minutes, " minuten | ").concat(_time.seconds, " seconden");
       }
 
-      return '';
+      var started = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.created_at);
+      var stopped = moment__WEBPACK_IMPORTED_MODULE_0___default()(timer.updated_at);
+
+      var time = this._readableTimeFromSeconds(parseInt(moment__WEBPACK_IMPORTED_MODULE_0___default.a.duration(stopped.diff(started)).asSeconds()));
+
+      return "".concat(time.hours, " Uur | ").concat(time.minutes, " minuten | ").concat(time.seconds, " seconden");
     },
 
     /**
@@ -2122,19 +2156,61 @@ __webpack_require__.r(__webpack_exports__);
         _this.activeTimerString = 'Berekenen...';
       });
     },
+    updateTimer: function updateTimer() {
+      var _this2 = this;
+
+      window.axios.post("/projects/".concat(this.counter.timer.id, "/timers/update")).then(function (response) {
+        // Loop through the projects and get the right project...
+        _this2.projects.forEach(function (project) {
+          if (project.id) {
+            // Loop through the timers of the project and set the `stopped_at` time
+            return project.timers.forEach(function (timer) {
+              if (timer.id === parseInt(_this2.counter.timer.id)) {
+                return timer.stopped_at = response.data.stopped_at;
+              }
+            });
+          }
+        }); // Stop the ticker
+
+
+        clearInterval(_this2.counter.ticker); // Reset the counter and timer string
+
+        _this2.counter = {
+          seconds: 0,
+          timer: null
+        };
+        _this2.activeTimerString = 'Berekenen...';
+      });
+    },
+    // restartTimer: function (project, timer) {
+    //     if (timer.stopped_at) {
+    //         const started = moment(timer.created_at)
+    //         const stopped = moment(timer.stopped_at)
+    //         const vm = this
+    //
+    //         vm.counter.timer = timer
+    //         vm.counter.timer.project = project
+    //         vm.counter.seconds = parseInt(moment.duration(stopped.diff(started)).asSeconds())
+    //         vm.counter.ticker = setInterval(() => {
+    //             const time = vm._readableTimeFromSeconds(++vm.counter.seconds)
+    //             return vm.activeTimerString = `${time.hours} Uur | ${time.minutes}:${time.seconds}`
+    //         }, 1000)
+    //     }
+    //     return ''
+    // },
 
     /**
      * Create a new timer.
      */
     createTimer: function createTimer(project) {
-      var _this2 = this;
+      var _this3 = this;
 
       window.axios.post("/projects/".concat(project.id, "/timers"), {
         name: this.newTimerName
       }).then(function (response) {
         project.timers.push(response.data);
 
-        _this2.startTimer(response.data.project, response.data);
+        _this3.startTimer(response.data.project, response.data);
       });
       this.newTimerName = '';
     },
@@ -2143,24 +2219,27 @@ __webpack_require__.r(__webpack_exports__);
      * Create a new project.
      */
     createProject: function createProject() {
-      var _this3 = this;
+      var _this4 = this;
 
       window.axios.post('/projects', {
         name: this.newProjectName
       }).then(function (response) {
-        return _this3.projects.push(response.data);
+        return _this4.projects.push(response.data);
       });
       this.newProjectName = '';
     }
   },
+  testUpdate: function testUpdate() {
+    alert('test');
+  },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     window.axios.get('/projects').then(function (response) {
-      _this4.projects = response.data;
+      _this5.projects = response.data;
       window.axios.get('/projects/timers/active').then(function (response) {
         if (response.data.id !== undefined) {
-          _this4.startTimer(response.data.project, response.data);
+          _this5.startTimer(response.data.project, response.data);
         }
       });
     });
@@ -59725,7 +59804,24 @@ var render = function() {
                                                     })
                                                   ]
                                                 )
-                                              : _vm._e()
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "btn btn-primary",
+                                                attrs: {
+                                                  "data-toggle": "modal",
+                                                  "data-target": "#testUpdate"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.testUpdate()
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("test")]
+                                            )
                                           ]
                                         )
                                       ]
@@ -59749,12 +59845,82 @@ var render = function() {
                       "div",
                       {
                         staticClass: "modal fade",
+                        attrs: { id: "testUpdate", role: "dialog" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.testUpdate,
+                                    expression: "testUpdate"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "test",
+                                  placeholder: "test update"
+                                },
+                                domProps: { value: _vm.testUpdate },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.testUpdate = $event.target.value
+                                  }
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.testUpdate) +
+                                  "\n                            "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-default btn-primary",
+                                attrs: {
+                                  "data-dismiss": "modal",
+                                  type: "submit"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.testUpdate()
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fas fa-plus" }),
+                                _vm._v(" updaten")
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal fade",
                         attrs: { id: "timerCreate", role: "dialog" }
                       },
                       [
                         _c("div", { staticClass: "modal-dialog modal-sm" }, [
                           _c("div", { staticClass: "modal-content" }, [
-                            _vm._m(1),
+                            _vm._m(2),
                             _vm._v(" "),
                             _c("div", { staticClass: "modal-body" }, [
                               _c("div", { staticClass: "form-group" }, [
@@ -59770,7 +59936,7 @@ var render = function() {
                                   staticClass: "form-control",
                                   attrs: {
                                     type: "text",
-                                    id: "usrname",
+                                    id: "usrname2",
                                     placeholder: "Waarvoor ben je aan het werk?"
                                   },
                                   domProps: { value: _vm.newTimerName },
@@ -59832,7 +59998,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "modal-dialog modal-sm" }, [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c("div", { staticClass: "form-group" }, [
@@ -59885,7 +60051,7 @@ var render = function() {
             )
           ])
         : _c("div", { staticClass: "timers" }, [
-            _vm._v("\n        Laden...\n    ")
+            _vm._v("\n            Laden...\n        ")
           ])
     ])
   ])
@@ -59910,6 +60076,23 @@ var staticRenderFns = [
           [_vm._v("Nieuw project")]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Test thing")])
     ])
   },
   function() {

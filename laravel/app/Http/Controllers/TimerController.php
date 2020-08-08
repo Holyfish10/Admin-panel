@@ -46,13 +46,41 @@ class TimerController extends Controller
      * Stop running the active timer.
      *
      * @return array
+     * @throws \Exception
      */
     public function stopRunning()
     {
         if ($timer = Timer::mine()->running()->first()) {
-            $timer->update(['stopped_at' => new Carbon]);
+            $timer->update([
+                'stopped_at' => new Carbon
+            ]);
         }
 
         return $timer;
+    }
+
+    public function update()
+    {
+        if ($timer = Timer::mine()->running()->first()) {
+            $timer->update([
+                'stopped_at' => new Carbon
+            ]);
+        }
+
+        return $timer;
+    }
+
+    public function test(Request $request, $id)
+    {
+        $this->test($request, [
+            'name' => '',
+        ]);
+
+        $post = Timer::findOrFail($id);
+        $post->name = $request->input('name');
+
+        $post->save();
+
+        return redirect('timer/'.$post->id)->with('success', 'Bericht is bewerkt');
     }
 }
