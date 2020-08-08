@@ -55,7 +55,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-danger text-center">
                                     <h1 class="font-light text-white"><i class="fab fa-uikit"></i></h1>
-                                    <h6 class="text-white">120 Projecten</h6>
+                                    <h6 class="text-white">{{$sites->count()}} Projecten</h6>
                                 </div>
                             </div>
                         </div>

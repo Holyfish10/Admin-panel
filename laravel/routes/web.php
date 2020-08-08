@@ -10,6 +10,8 @@ Route::get('/','HomeController@home')->name('home');
 Route::get('/timer', 'HomeController@projects')->name('timer');
 //PostsController
 Route::resource('posts', 'PostsController');
+//SitesController
+Route::resource('sites', 'SiteController');
 //ProjectsController url's
 Route::get('/projects', 'ProjectsController@index');
 Route::post('/projects', 'ProjectsController@store');

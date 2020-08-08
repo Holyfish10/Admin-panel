@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Carbon;
 use App\Post;
 use App\Projects;
+use App\Sites;
 
 class HomeController extends Controller
 {
@@ -34,6 +35,7 @@ class HomeController extends Controller
         $post = Post::all();
         $posts = Post::orderBy('created_at', 'desc')->paginate(3);
         $events = Event::whereDate('start', Carbon::today())->get();
+        $sites = Sites::all();
 
         if(request()->ajax())
         {
@@ -45,7 +47,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home', compact('users', 'events', 'post', 'posts'));
+        return view('home', compact('users', 'events', 'post', 'posts', 'sites'));
     }
 
     public function projects()
