@@ -12,6 +12,9 @@ Route::get('/timer', 'HomeController@projects')->name('timer');
 Route::resource('posts', 'PostsController');
 //SitesController
 Route::resource('sites', 'SiteController');
+//InvoiceController
+Route::resource('invoices', 'InvoiceController');
+Route::delete('bulkDestroy', ['as'=>'invoices.multiple-delete','uses'=>'InvoiceController@bulkDestroy']);
 //ProjectsController url's
 Route::get('/projects', 'ProjectsController@index');
 Route::post('/projects', 'ProjectsController@store');
