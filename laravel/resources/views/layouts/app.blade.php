@@ -195,7 +195,7 @@
 
         <!-- Scripts -->
         <script src="{{asset('/js/app.js')}}"></script>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
         <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
         <!--Wave Effects -->
