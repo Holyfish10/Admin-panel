@@ -15,6 +15,10 @@ Route::resource('sites', 'SiteController');
 //InvoiceController
 Route::resource('invoices', 'InvoiceController');
 Route::delete('bulkDestroy', ['as'=>'invoices.multiple-delete','uses'=>'InvoiceController@bulkDestroy']);
+Route::get('/downloadPDF/{id}','InvoiceController@downloadPDF');
+//ClientController
+Route::resource('clients', 'ClientController');
+Route::delete('bulkDestroyClients', ['as'=>'clients.multiple-delete','uses'=>'ClientController@bulkDestroy']);
 //ProjectsController url's
 Route::get('/projects', 'ProjectsController@index');
 Route::post('/projects', 'ProjectsController@store');

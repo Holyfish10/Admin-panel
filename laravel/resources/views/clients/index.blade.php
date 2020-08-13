@@ -9,7 +9,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Facturen</li>
+                            <li class="breadcrumb-item active" aria-current="page">Klanten</li>
                         </ol>
                     </nav>
                 </div>
@@ -20,42 +20,36 @@
     <div class="container p-5">
 
         <div class="col-12">
-            @if ($success = Session::get('success'))
-                <div class="alert alert-success text-center">
-                    {{$success}}
-                </div>
-            @endif
-
+            <div class="mb-3">@include('layouts.messages')</div>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="card card-hover">
                     <div class="box bg-warning text-center">
                         <h1 class="font-light text-white"><i class="far fa-envelope"></i></h1>
-                        <h6 class="text-white">{{$invoices->count()}} Facturen</h6>
+                        <h6 class="text-white">{{$clients->count()}} Klanten</h6>
                     </div>
                 </div>
             </div>
-
             <div class="col-4">
                 <div class="card card-hover">
                     <div class="box bg-danger text-center">
                         <h1 class="font-light text-white"><i class="far fa-envelope"></i></h1>
-                        <h6 class="text-white">{{$invoices->where('status', '=', 2)->count()}} Openstaande facturen</h6>
+                        <h6 class="text-white">{{$test}} Openstaand</h6>
                     </div>
                 </div>
             </div>
-
+        </div>
 
         <div class="card" style="font-family: Nunito-sans, sans-serif">
             <div class="card-body">
-                <h5 class="card-title d-inline mt-5">Facturen</h5>
+                <h5 class="card-title d-inline mt-5">Klanten</h5>
                 <div class="float-right">
-                    <button class="btn btn-danger delete-all" data-url="">Verwijder selectie</button>
-                    <a href="{{ route('invoices.create') }}" class="btn btn-success">Factuur aanmaken</a>
+                    <a href="{{ route('clients.create') }}" class="btn btn-success">Klant aanmaken</a>
                 </div>
             </div>
-                @if(count($invoices) > 0)
+                @if(count($clients) > 0)
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -66,45 +60,43 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </th>
-                                <th scope="col">#</th>
+                                <th scope="col">Bedrijf</th>
                                 <th scope="col">Klant</th>
-                                <th scope="col">Verkoper</th>
-                                <th scope="col">Datum</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Stad</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Opties</th>
                             </tr>
                             </thead>
                             <tbody class="customtable">
 
-                            @foreach($invoices as $invoice)
+                            @foreach($clients as $client)
                                 <tr>
                                     <th>
                                         <label class="customcheckbox">
-                                            <input type="checkbox" class="listCheckbox checkbox" data-id="{{ $invoice->id }}"/>
+                                            <input type="checkbox" class="listCheckbox checkbox" data-id="{{ $client->id }}"/>
                                             <span class="checkmark"></span>
                                         </label>
                                     </th>
-                                    <td>{{$invoice->id}}</td>
-                                    <td>{{$invoice->client['name'] ?? $invoice->name}}</td>
-                                    <td>{{ $invoice->user->name }}</td>
-                                    <td>{{ $invoice->created_at->format('d-m-Y') }}</td>
+                                    <td>{{$client->company}}</td>
+                                    <td>{{$client->name}}</td>
+                                    <td><a href="mailto:{{$client->email}}">{{$client->email}}</a></td>
+                                    <td>{{ $client->city }}</td>
                                     <td>
-                                        @if($invoice->status == 0)
+
+                                        @if($client->clients->first()->status == 0)
                                             <span class="badge badge-success">Betaald</span>
-                                        @endif
-                                        @if($invoice->status == 1)
+                                        @elseif($client->clients->first()->status == 1)
                                             <span class="badge badge-info">In afwachting</span>
-                                        @endif
-                                        @if($invoice->status == 2)
+                                        @else
                                             <span class="badge badge-danger">Niet betaald</span>
                                         @endif
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{action('InvoiceController@downloadPDF', $invoice->id)}}" class="btn btn-light"><i class="far fa-file-pdf"></i></a>
-                                            <a href="{{ action('InvoiceController@show', $invoice->id) }}" class="btn btn-info"><i class="fas fa-search"></i></a>
-                                            <a href="{{ url('/invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ action('InvoiceController@destroy', $invoice->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
+                                            <a href="{{ action('ClientController@show', $client->id) }}" class="btn btn-info"><i class="fas fa-search"></i></a>
+                                            <a href="{{ url('/clients/'.$client->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                            <form action="{{ action('ClientController@destroy', $client->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
@@ -117,17 +109,17 @@
                         </table>
 
                         <div class="mt-3 ml-3">
-{{--                            {{$inv->links()}}--}}
+                            {{$clients->links()}}
                         </div>
 
                     </div>
             @else
-            <p class="text-center">Er zijn nog geen facturen aangemaakt</p>
+            <p class="text-center">Er zijn nog geen klanten aangemaakt</p>
         @endif
         </div>
 
+        </div>
     </div>
-</div>
 
     @section('scripts')
         <script type="text/javascript">
@@ -148,7 +140,7 @@
 
                             $.ajax({
 
-                                url: "{{ route('invoices.multiple-delete') }}",
+                                url: "{{ route('clients.multiple-delete') }}",
 
                                 type: 'DELETE',
 
