@@ -59,7 +59,7 @@ class TimerController extends Controller
         return $timer;
     }
 
-    public function update()
+    public function update(Request $request)
     {
         if ($timer = Timer::mine()->running()->first()) {
             $timer->update([
@@ -68,19 +68,5 @@ class TimerController extends Controller
         }
 
         return $timer;
-    }
-
-    public function test(Request $request, $id)
-    {
-        $this->test($request, [
-            'name' => '',
-        ]);
-
-        $post = Timer::findOrFail($id);
-        $post->name = $request->input('name');
-
-        $post->save();
-
-        return redirect('timer/'.$post->id)->with('success', 'Bericht is bewerkt');
     }
 }

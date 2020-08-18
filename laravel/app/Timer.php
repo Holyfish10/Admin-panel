@@ -12,7 +12,7 @@ class Timer extends Model
     protected $fillable = [
         'name',
         'user_id',
-        'project_id',
+        'projects_id',
         'stopped_at',
         'started_at',
     ];
@@ -29,7 +29,7 @@ class Timer extends Model
      * {@inheritDoc}
      */
     protected $with = [
-        'user'
+        'user', 'project'
     ];
 
     /**
@@ -39,7 +39,7 @@ class Timer extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -49,7 +49,7 @@ class Timer extends Model
      */
     public function project()
     {
-        return $this->belongsTo(Projects::class);
+        return $this->belongsTo(Projects::class, 'projects_id', 'id');
     }
 
     /**

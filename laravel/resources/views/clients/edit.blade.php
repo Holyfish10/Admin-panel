@@ -33,7 +33,7 @@
                     <div class="col-6 mx-auto mb-3">
                         <p class="h3 col-12 text-center">Kies een klant ...</p>
                         <select class="form-control" name="client_name">
-                            <option value="" selected>Kies een klant ...</option>
+                            <option value="{{$client->id}}" selected>{{ $client->id }} - {{ $client->name }}</option>
                             @foreach($clients as $select)
                                 <option value="{{$select->name}}">{{$select->id}} - {{$select->name}}</option>
                             @endforeach

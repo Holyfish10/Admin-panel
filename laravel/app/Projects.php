@@ -28,7 +28,7 @@ class Projects extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -38,7 +38,7 @@ class Projects extends Model
      */
     public function timers()
     {
-        return $this->hasMany(Timer::class);
+        return $this->hasMany(Timer::class, 'projects_id', 'id');
     }
 
     /**

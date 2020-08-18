@@ -26,9 +26,6 @@ Route::post('/projects/{id}/timers/stop', 'TimerController@stopRunning');
 Route::post('/projects/{id}/timers/update', 'TimerController@update');
 Route::post('/projects/{id}/timers', 'TimerController@store');
 Route::get('/projects/timers/active', 'TimerController@running');
-
-Route::post('/projects/{id}/testUpdate', 'TimerController@test');
-
 //Calendar
 Route::post('/create','CalendarController@create');
 Route::post('/update','CalendarController@update');

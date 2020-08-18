@@ -83,13 +83,13 @@
 
                 <tr class="item">
                     <td>
-                        {{ $val }}
+                        {{ $val ?? '' }}
                     </td>
                     <td>
-                        {{ $description[$key] }}
+                        {{ $description[$key] ?? '' }}
                     </td>
                     <td>
-                        {{ $amount[$key] }}
+                        {{ $amount[$key] ?? '' }}
                     </td>
                     <td>
                         € {{ number_format($price * $amount[$key], 2, '.', '') }}

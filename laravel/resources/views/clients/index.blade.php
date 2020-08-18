@@ -69,7 +69,6 @@
                             </tr>
                             </thead>
                             <tbody class="customtable">
-
                             @foreach($clients as $client)
                                 <tr>
                                     <th>
@@ -84,9 +83,9 @@
                                     <td>{{ $client->city }}</td>
                                     <td>
 
-                                        @if($client->clients->first()->status == 0)
+                                        @if($invoice->first()->status == 0)
                                             <span class="badge badge-success">Betaald</span>
-                                        @elseif($client->clients->first()->status == 1)
+                                        @elseif($invoice->first()->status == 1)
                                             <span class="badge badge-info">In afwachting</span>
                                         @else
                                             <span class="badge badge-danger">Niet betaald</span>

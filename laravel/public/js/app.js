@@ -1910,31 +1910,6 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2049,17 +2024,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       projects: null,
       newTimerName: '',
       newProjectName: '',
-      activeTimerString: 'Berekenen...'
-    }, _defineProperty(_ref, "activeTimerString", 'Berekenen...'), _defineProperty(_ref, "counter", {
-      seconds: 0,
-      timer: null
-    }), _defineProperty(_ref, "testUpdate", ''), _ref;
+      activeTimerString: 'Berekenen...',
+      counter: {
+        seconds: 0,
+        timer: null
+      }
+    };
   },
   methods: {
     /**
@@ -2228,9 +2202,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       this.newProjectName = '';
     }
-  },
-  testUpdate: function testUpdate() {
-    alert('test');
   },
   created: function created() {
     var _this5 = this;
@@ -59804,24 +59775,7 @@ var render = function() {
                                                     })
                                                   ]
                                                 )
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "btn btn-primary",
-                                                attrs: {
-                                                  "data-toggle": "modal",
-                                                  "data-target": "#testUpdate"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.testUpdate()
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("test")]
-                                            )
+                                              : _vm._e()
                                           ]
                                         )
                                       ]
@@ -59845,82 +59799,12 @@ var render = function() {
                       "div",
                       {
                         staticClass: "modal fade",
-                        attrs: { id: "testUpdate", role: "dialog" }
-                      },
-                      [
-                        _c("div", { staticClass: "modal-content" }, [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-body" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.testUpdate,
-                                    expression: "testUpdate"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  id: "test",
-                                  placeholder: "test update"
-                                },
-                                domProps: { value: _vm.testUpdate },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.testUpdate = $event.target.value
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(_vm.testUpdate) +
-                                  "\n                            "
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-default btn-primary",
-                                attrs: {
-                                  "data-dismiss": "modal",
-                                  type: "submit"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.testUpdate()
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", { staticClass: "fas fa-plus" }),
-                                _vm._v(" updaten")
-                              ]
-                            )
-                          ])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "modal fade",
                         attrs: { id: "timerCreate", role: "dialog" }
                       },
                       [
                         _c("div", { staticClass: "modal-dialog modal-sm" }, [
                           _c("div", { staticClass: "modal-content" }, [
-                            _vm._m(2),
+                            _vm._m(1),
                             _vm._v(" "),
                             _c("div", { staticClass: "modal-body" }, [
                               _c("div", { staticClass: "form-group" }, [
@@ -59998,7 +59882,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "modal-dialog modal-sm" }, [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c("div", { staticClass: "form-group" }, [
@@ -60076,23 +59960,6 @@ var staticRenderFns = [
           [_vm._v("Nieuw project")]
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      ),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Test thing")])
     ])
   },
   function() {

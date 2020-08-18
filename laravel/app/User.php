@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invoice::class, 'user_id', 'id');
     }
+
+    public function project()
+    {
+        $this->belongsTo(Projects::class, 'user_id', 'id');
+    }
 }
