@@ -88,6 +88,12 @@
                         <input type="text" class="form-control" name="discount" placeholder="korting" value="{{ $invoice->discount }}">
                     </div>
 
+                    @if($invoice->total != NULL)
+                        <div class="col-6 mt-3">
+                            <input type="number" step="0.01" class="form-control" name="total" placeholder="Totaal" value="{{ $invoice->total }}">
+                        </div>
+                    @endif
+
                     <div id="products" class="mx-auto col-8 form-group">
 
                     <?php
@@ -118,11 +124,18 @@
 
                        @elseif($invoice->project_id !== 0)
 
+
+                           <?php
+
+
+                            function decimalhours($time) {
+                                $hms = explode(":", $time);
+                                return ($hms[0] + ($hms[1]/60) + ($hms[2]/3600));
+                            }
+
+                            ?>
+
                        @foreach($invoice->timers as $test1 => $value)
-                           @php
-                               $from = new \Illuminate\Support\Carbon($value->created_at);
-                                $to = new \Illuminate\Support\Carbon($value->stopped_at);
-                           @endphp
 
                                 <div class="row projects" id="projects">
                                     <div class="col-3 mt-3">
@@ -132,7 +145,7 @@
                                         <input type="text" class="form-control description" name="" placeholder="Omschrijving" value="{{$value->name}}">
                                     </div>
                                     <div class="col-3 mt-3">
-                                        <input type="text" class="form-control aantal" name="" placeholder="Aantal" value="{{$from->diff($to)->format('%H:%I:%S')}}">
+                                        <input type="text" class="form-control aantal" name="" placeholder="Aantal" value="{{$decimal}}">
                                     </div>
                                 </div>
                        @endforeach

@@ -58,6 +58,9 @@
                     <div class="col-6 mt-3">
                         <input type="text" class="form-control" name="discount" placeholder="korting">
                     </div>
+                    <div class="col-6 mt-3">
+                        <input type="number" step="0.01" class="form-control" name="total" placeholder="Totaal">
+                    </div>
                     <div class="row w-75 mx-auto" id="products">
                         <div class="col-3 mt-3">
                             <input type="text" class="form-control item" name="item[]" placeholder="Product">

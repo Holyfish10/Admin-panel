@@ -71,7 +71,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-info text-center">
                                     <h1 class="font-light text-white"><i class="fas fa-users"></i></h1>
-                                    <h6 class="text-white">120 Klanten</h6>
+                                    <h6 class="text-white">{{$clients->count()}} Klanten</h6>
                                 </div>
                             </div>
                         </div>
@@ -121,54 +121,121 @@
             </div>
              <!-- Card -->
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title m-b-0">Tasks</h5>
+                <div class="card-body d-flex">
+                    <h5 class="card-title m-b-0 col-11">To-do</h5>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#addTodoModel">+</button>
+
+                    <form action="{{ action('TodoController@store') }}" method="POST">
+                    @csrf
+                    <!-- Modal -->
+                        <div class="modal fade" id="addTodoModel" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">To-do aanmaken</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row justify-content-center">
+                                            <input type="text" name="name" placeholder="To-do item" class="form-control col-3 mr-1">
+                                            <select name="status" id="" class="form-control col-3">
+                                                <option value="2">Open</option>
+                                                <option value="1">In bewerking</option>
+                                                <option value="0">Gesloten</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                                        <input type="submit" value="Aanmaken" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Description</th>
+                        <th scope="col">Item</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Acties</th>
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach(auth()->user()->todo as $todo)
                     <tr>
-                        <td>Making The New Suit</td>
-                        <td class="text-success">Progress</td>
+                        <td>{{$todo->name}}</td>
+                        @if($todo->status == 0)
+                            <td style="color: #28b779;">Open</td>
+                        @elseif($todo->status == 1)
+                            <td class="text-warning">In bewerking</td>
+                        @else
+                            <td style="color: red;">Gesloten</td>
+                        @endif
                         <td>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                 <i class="mdi mdi-check"></i>
                             </a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="mdi mdi-close"></i>
+
+                            <a href="" data-toggle="modal" data-target="#todoModal">
+                                <i class="mdi mdi-pencil"></i>
                             </a>
+                            <form action="{{ action('TodoController@destroy', $todo->id) }}" method="POST" style="display: inline;" id="todoForm" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?');">
+                                @csrf
+                                @method('DELETE')
+                                <a id="todoSubmit" data-toggle="tooltip" data-placement="top" title="Delete">
+                                   <i class="mdi mdi-close" style="color: #2962FF;"></i>
+                                </a>
+                            </form>
+
+                            <form action="{{action('TodoController@edit', $todo->id) }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <!-- Modal -->
+                                <div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">To-do bewerken</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="row justify-content-center">
+                                                    <input type="text" name="name" placeholder="To-do item" class="form-control col-3 mr-1" value="{{$todo->name}}">
+                                                    <select name="status" id="" class="form-control col-3">
+                                                        <option value="{{ $todo->status }}" selected>
+                                                            @if($todo->status == 0)
+                                                                Open
+                                                            @elseif($todo->status == 1)
+                                                                In bewerking
+                                                            @else
+                                                                Gesloten
+                                                             @endif
+                                                        </option>
+                                                        <option value="0">Open</option>
+                                                        <option value="1">In bewerking</option>
+                                                        <option value="2">Gesloten</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                                                <input type="submit" value="Bewerken" class="btn btn-primary">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                         </td>
                     </tr>
-                    <tr>
-                        <td>Luanch My New Site</td>
-                        <td class="text-warning">Pending</td>
-                        <td>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                <i class="mdi mdi-check"></i>
-                            </a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="mdi mdi-close"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Maruti Excellant Theme</td>
-                        <td class="text-danger">Cancled</td>
-                        <td>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                <i class="mdi mdi-check"></i>
-                            </a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="mdi mdi-close"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -376,7 +443,6 @@
                     });
                 }
             }
-
         });
     });
 
@@ -384,6 +450,10 @@
         $(".response").html("<div class='alert alert-success'>"+message+"</div>");
         setInterval(function(e) { $('.success').fadeOut(); }, 1000);
     }
+
+    document.getElementById("todoSubmit").onclick = function() {
+        document.getElementById("todoForm").submit();
+    };
 </script>
 @endsection
 

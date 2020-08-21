@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         $this->belongsTo(Projects::class, 'user_id', 'id');
     }
+
+    public function todo()
+    {
+        return $this->hasMany(Todo::class);
+    }
 }

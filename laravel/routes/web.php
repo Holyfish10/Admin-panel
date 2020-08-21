@@ -10,6 +10,9 @@ Route::get('/','HomeController@home')->name('home');
 Route::get('/timer', 'HomeController@projects')->name('timer');
 //PostsController
 Route::resource('posts', 'PostsController');
+//TodoController
+Route::resource('todo', 'TodoController');
+Route::post('todo/{id}/edit', 'TodoController@update');
 //SitesController
 Route::resource('sites', 'SiteController');
 //InvoiceController

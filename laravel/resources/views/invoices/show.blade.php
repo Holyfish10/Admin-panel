@@ -72,6 +72,7 @@
                 $item = unserialize($invoice->item);
                 $description = unserialize($invoice->description);
                 $amount = unserialize($invoice->amount);
+                $totalPrice = $invoice->total;
 
                 $price = 20;
                 $total = 0;
@@ -79,7 +80,13 @@
 
             @foreach($item as $key => $val)
 
-                <?php $total += ($price * $amount[$key]); ?>
+                <?php
+                if($totalPrice == NULL) {
+                  $total += ($price * $amount[$key]);
+                } else {
+                    $total = $totalPrice;
+                }
+                ?>
 
                 <tr class="item">
                     <td>
@@ -92,7 +99,11 @@
                         {{ $amount[$key] ?? '' }}
                     </td>
                     <td>
-                        € {{ number_format($price * $amount[$key], 2, '.', '') }}
+                        @if($totalPrice == NULL)
+                          € {{ number_format($price * $amount[$key], 2, '.', '') }}
+                        @else
+                          € {{ number_format($total, 2, '.', '') }}
+                        @endif
                     </td>
                 </tr>
 
