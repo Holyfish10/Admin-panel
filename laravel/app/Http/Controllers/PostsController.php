@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Post;
+use App\User;
+use Auth;
 use Illuminate\Validation\ValidationException;
 
 class PostsController extends Controller
@@ -12,7 +14,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+		return $this->middleware('checkAdmin');
     }
 
     /**
@@ -24,6 +26,7 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         $post = Post::all();
+
         return view('posts.index', compact('post', 'posts'));
     }
 
@@ -89,6 +92,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+
         return view('posts.edit', compact('post'));
     }
 

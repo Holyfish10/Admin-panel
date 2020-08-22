@@ -9,7 +9,7 @@ Auth::routes(['register' => false]);
 Route::get('/','HomeController@home')->name('home');
 Route::get('/timer', 'HomeController@projects')->name('timer');
 //PostsController
-Route::resource('posts', 'PostsController');
+Route::resource('posts', 'PostsController')->middleware('checkAdmin');
 //TodoController
 Route::resource('todo', 'TodoController');
 Route::post('todo/{id}/edit', 'TodoController@update');

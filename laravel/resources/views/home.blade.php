@@ -8,8 +8,7 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item active" aria-current="page">Home</li>
                         </ol>
                     </nav>
                 </div>
@@ -55,7 +54,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-danger text-center">
                                     <h1 class="font-light text-white"><i class="fab fa-uikit"></i></h1>
-                                    <h6 class="text-white">{{$sites->count()}} Projecten</h6>
+                                    <h6 class="text-white">{{auth()->user()->sites->count()}} Projecten</h6>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +62,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-primary text-center">
                                     <h1 class="font-light text-white"><i class="fas fa-tasks"></i></h1>
-                                    <h6 class="text-white">120 Dingen te doen</h6>
+                                    <h6 class="text-white">{{auth()->user()->todo->count()}} To-do's</h6>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +70,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-info text-center">
                                     <h1 class="font-light text-white"><i class="fas fa-users"></i></h1>
-                                    <h6 class="text-white">{{$clients->count()}} Klanten</h6>
+                                    <h6 class="text-white">{{auth()->user()->clients->count()}} Klanten</h6>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +80,10 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6">
-             <div class="card">
+            @if(auth()->user()->email == 'jesseboer@hotmail.com')
+			<div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Laatste nieuws</h4>
                 </div>
@@ -119,6 +118,7 @@
                     @endif
                 </div>
             </div>
+			@endif
              <!-- Card -->
             <div class="card">
                 <div class="card-body d-flex">
@@ -141,9 +141,9 @@
                                         <div class="row justify-content-center">
                                             <input type="text" name="name" placeholder="To-do item" class="form-control col-3 mr-1">
                                             <select name="status" id="" class="form-control col-3">
-                                                <option value="2">Open</option>
+                                                <option value="0">Open</option>
                                                 <option value="1">In bewerking</option>
-                                                <option value="0">Gesloten</option>
+                                                <option value="2">Gesloten</option>
                                             </select>
                                         </div>
                                     </div>
@@ -166,6 +166,7 @@
                     </tr>
                     </thead>
                     <tbody>
+					@if(count($todo) > 0)
                     @foreach(auth()->user()->todo as $todo)
                     <tr>
                         <td>{{$todo->name}}</td>
@@ -236,6 +237,9 @@
                         </td>
                     </tr>
                     @endforeach
+					@else
+						<p class="text-center">Er zijn nog geen to-do's aangemaakt!</p>
+                    @endif
                     </tbody>
                 </table>
             </div>

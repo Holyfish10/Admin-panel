@@ -121,12 +121,14 @@
 
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('home')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                                     <!-- Posts -->
+									@if(auth()->user()->email == 'jesseboer@hotmail.com')
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Nieuwsberichten </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ route('posts.index') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                             <li class="sidebar-item"><a href="{{ route('posts.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
+									@endif
                                     <!-- Websites -->
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-sitemap"></i><span class="hide-menu">Websites </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
