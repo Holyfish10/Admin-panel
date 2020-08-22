@@ -178,19 +178,14 @@
                             <td style="color: red;">Gesloten</td>
                         @endif
                         <td>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                <i class="mdi mdi-check"></i>
-                            </a>
+                            <button class="btn bg-white" data-toggle="modal" data-target="#todoModal">
+                                <i class="mdi mdi-pencil" style="color: #2962FF;"></i>
+                            </button>
 
-                            <a href="" data-toggle="modal" data-target="#todoModal">
-                                <i class="mdi mdi-pencil"></i>
-                            </a>
                             <form action="{{ action('TodoController@destroy', $todo->id) }}" method="POST" style="display: inline;" id="todoForm" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?');">
                                 @csrf
                                 @method('DELETE')
-                                <a id="todoSubmit" data-toggle="tooltip" data-placement="top" title="Delete">
-                                   <i class="mdi mdi-close" style="color: #2962FF;"></i>
-                                </a>
+                                <button type="submit" id="removeItem" class="btn bg-white"><i class="mdi mdi-close" style="color: #2962FF;"></i></button>
                             </form>
 
                             <form action="{{action('TodoController@edit', $todo->id) }}" method="POST">
@@ -455,9 +450,11 @@
         setInterval(function(e) { $('.success').fadeOut(); }, 1000);
     }
 
-    document.getElementById("todoSubmit").onclick = function() {
-        document.getElementById("todoForm").submit();
-    };
+    $(document).on('click', '#removeItem', function(){
+        if(confirm === true) {
+            $('#todoForm').submit();
+        }
+    });
 </script>
 @endsection
 
