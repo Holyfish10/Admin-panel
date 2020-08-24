@@ -124,30 +124,18 @@
 
                        @elseif($invoice->project_id !== 0)
 
-
-                           <?php
-
-
-                            function decimalhours($time) {
-                                $hms = explode(":", $time);
-                                return ($hms[0] + ($hms[1]/60) + ($hms[2]/3600));
-                            }
-
-                            ?>
-
-                       @foreach($invoice->timers as $test1 => $value)
-
-                                <div class="row projects" id="projects">
-                                    <div class="col-3 mt-3">
-                                        <input type="text" class="form-control item" name="" placeholder="Product" value="{{$value->project->name}}">
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <input type="text" class="form-control description" name="" placeholder="Omschrijving" value="{{$value->name}}">
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <input type="text" class="form-control aantal" name="" placeholder="Aantal" value="{{$decimal}}">
-                                    </div>
+                       @foreach($invoice->timers as $key => $value)
+                            <div class="row projects" id="projects">
+                                <div class="col-3 mt-3">
+                                    <input type="text" class="form-control item" name="" placeholder="Product" value="{{$value->project->name}}">
                                 </div>
+                                <div class="col-3 mt-3">
+                                    <input type="text" class="form-control description" name="" placeholder="Omschrijving" value="{{$value->name}}">
+                                </div>
+                                <div class="col-3 mt-3">
+                                    <input type="text" class="form-control aantal" name="" placeholder="Aantal" value="{{$decimal ?? ''}}">
+                                </div>
+                            </div>
                        @endforeach
 
                       @else

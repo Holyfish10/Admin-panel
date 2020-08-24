@@ -73,9 +73,4 @@ class Timer extends Model
     {
         return $query->whereNull('stopped_at');
     }
-
-    public function decimalHours($time) {
-        $hms = explode(":", $time);
-        return ($hms[0] + ($hms[1]/60) + ($hms[2]/3600));
-    }
 }

@@ -355,7 +355,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: SITEURL + "{{route('home')}}",
+            events: SITEURL + "/",
             displayEventTime: true,
             editable: true,
 
