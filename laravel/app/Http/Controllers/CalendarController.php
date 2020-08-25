@@ -12,7 +12,8 @@ class CalendarController extends Controller
     {
         $insertArr = [ 'title' => $request->title,
             'start' => $request->start,
-            'end' => $request->end
+            'end' => $request->end,
+            'user_id' => auth()->user()->id,
         ];
         $event = Event::insert($insertArr);
 

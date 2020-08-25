@@ -17,11 +17,11 @@ class SiteController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $sites = Sites::orderBy('created_at', 'desc')->paginate(10);
+        $sites = Sites::orderBy('created_at', 'desc')->where('user_id', '=',auth()->user()->id)->paginate(10);
         $site = Sites::all();
         return view('sites.index', compact('sites', 'site'));
 

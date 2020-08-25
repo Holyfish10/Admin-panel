@@ -32,12 +32,12 @@
                 </div>
             </div>
 
-            @if(count($sites) > 0)
                 <div class="card" style="font-family: Nunito-sans, sans-serif">
                     <div class="card-body">
                         <h5 class="card-title  d-inline mt-5">Websites overzicht</h5>
                         <a href="{{ route('sites.create') }}" class="btn btn-success float-right">Website aanmaken</a>
                     </div>
+                    @if(count($sites) > 0)
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

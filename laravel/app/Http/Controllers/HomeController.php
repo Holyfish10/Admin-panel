@@ -46,7 +46,7 @@ class HomeController extends Controller
             $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
             $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
 
-            $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->where('user_id', '=',auth()->user()->id)->get(['id','title','start', 'end']);
 
             return response()->json($data);
         }
