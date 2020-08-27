@@ -12,6 +12,7 @@ use App\Projects;
 use App\Sites;
 use App\Client;
 use App\Todo;
+use App\Ticket;
 
 class HomeController extends Controller
 {
@@ -40,6 +41,7 @@ class HomeController extends Controller
         $sites = Sites::all();
         $clients = Client::all();
         $todo = Todo::all();
+        $tickets = Ticket::orderBy('created_at')->where('status', '=', 'Open')->paginate(6);
 
         if(request()->ajax())
         {
@@ -51,7 +53,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home', compact('users', 'events', 'post', 'posts', 'sites', 'clients', 'todo'));
+        return view('home', compact('users', 'events', 'post', 'posts', 'sites', 'clients', 'todo', 'tickets'));
     }
 
     public function projects()

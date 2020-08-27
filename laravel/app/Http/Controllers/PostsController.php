@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Post;
-use App\User;
-use Auth;
 use Illuminate\Validation\ValidationException;
 
 class PostsController extends Controller
@@ -14,7 +12,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-		return $this->middleware('checkAdmin');
+		return $this->middleware('admin');
     }
 
     /**
@@ -136,5 +134,12 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect('/')->with('success', 'Bericht is verwijderd');
+    }
+
+    public function test()
+    {
+        $test = 'test';
+
+        return view('components.test-component', compact('test'));
     }
 }

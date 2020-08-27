@@ -150,6 +150,13 @@
                                             <li class="sidebar-item"><a href="{{ route('clients.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
+                                    @admin
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-box"></i><span class="hide-menu">Tickets </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+                                            <li class="sidebar-item"><a href="{{ url('/tickets') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
+                                        </ul>
+                                    </li>
+                                    @endadmin
                                 </ul>
                             </nav>
                             <!-- End Sidebar navigation -->

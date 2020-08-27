@@ -82,43 +82,11 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            @if(auth()->user()->email == 'jesseboer@hotmail.com')
-			<div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Laatste nieuws</h4>
-                </div>
-                <div class="comment-widgets scrollable">
-                    @if(count($posts) > 0)
-                    @foreach($posts as $post)
-                    <div class="d-flex flex-row comment-row">
-                        <div class="p-2"><img src="../../assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></div>
-                        <div class="comment-text active w-100">
-                            <h6 class="font-medium">{{$post->user->name}}</h6>
-                            <span class="m-b-15 d-block font-bold mb-2">{{ Str::limit($post->title, 30) }} </span>
-                            <span class="m-b-15 d-block mb-3">{!! strtolower(substr(strip_tags($post->message), 0, 100)) !!}</span>
-                            <div class="comment-footer">
-                                <span class="text-muted float-right">{{$post->created_at->format('d-m-Y')}}</span>
-                                <a href="{{url('/posts/'.$post->id.'/edit')}}"><button type="button" class="btn btn-cyan btn-sm">Bewerken</button></a>
-                                <button type="button" class="btn btn-success btn-sm">Publiceren</button>
-                                <form action="{{ action('PostsController@destroy', $post->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Verwijderen</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
 
-                        <div class="mt-3 row justify-content-center">
-                            {{$posts->links()}}
-                        </div>
-                    @else
-                        <p class="text-center">Er zijn nog geen berichten aangemaakt!</p>
-                    @endif
-                </div>
-            </div>
-			@endif
+            <x-news-component title="Laatste nieuws">
+
+            </x-news-component>
+
              <!-- Card -->
             <div class="card">
                 <div class="card-body d-flex">
@@ -242,75 +210,35 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title m-b-0">News Updates</h4>
+                    <h4 class="card-title m-b-0">Tickets</h4>
                 </div>
-                <ul class="list-style-none">
-                    <li class="d-flex no-block card-body">
-                        <i class="fa fa-check-circle w-30px m-t-5"></i>
-                        <div>
-                            <a href="#" class="m-b-0 font-medium p-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                            <span class="text-muted">dolor sit amet, consectetur adipiscing</span>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="tetx-right">
-                                <h5 class="text-muted m-b-0">20</h5>
-                                <span class="text-muted font-16">Jan</span>
+                <div class="comment-widgets scrollable">
+                    @if(count($tickets) > 0)
+                    @foreach($tickets as $ticket)
+                        <div class="d-flex flex-row comment-row">
+                            <div class="p-2"><span class="badge badge-success">{{$ticket->status}}</span></div>
+                            <div class="comment-text active w-100">
+                                <h6 class="font-medium">{{$ticket->name}}</h6>
+                                <span class="m-b-15 d-block font-bold mb-2">{{ Str::limit($ticket->title, 30) }} </span>
+                                <span class="m-b-15 d-block mb-3">{!! strtolower(substr(strip_tags($ticket->content), 0, 130)) !!} ...</span>
+                                <div class="comment-footer">
+                                    <span class="text-muted float-right">{{$ticket->created_at->format('d-m-Y')}}</span>
+                                    <a href="mailto:{{$ticket->email}}"><button type="button" class="btn btn-primary btn-sm">E-mail sturen</button></a>
+                                    <a href="{{url('/tickets/'.$ticket->id.'/show')}}"><button type="button" class="btn btn-cyan btn-sm">Bekijken</button></a>
+                                    <form action="{{ action('TicketsController@closeTicket', $ticket->ticket_id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit de ticket wilt sluiten?')">
+                                        @csrf
+                                        @method('POST')
+                                        <button type="submit" class="btn btn-danger btn-sm">Sluiten</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="d-flex no-block card-body border-top">
-                        <i class="fa fa-gift w-30px m-t-5"></i>
-                        <div>
-                            <a href="#" class="m-b-0 font-medium p-0">Congratulation Maruti, Happy Birthday</a>
-                            <span class="text-muted">many many happy returns of the day</span>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="tetx-right">
-                                <h5 class="text-muted m-b-0">11</h5>
-                                <span class="text-muted font-16">Jan</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="d-flex no-block card-body border-top">
-                        <i class="fa fa-plus w-30px m-t-5"></i>
-                        <div>
-                            <a href="#" class="m-b-0 font-medium p-0">Maruti is a Responsive Admin theme</a>
-                            <span class="text-muted">But already everything was solved. It will ...</span>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="tetx-right">
-                                <h5 class="text-muted m-b-0">19</h5>
-                                <span class="text-muted font-16">Jan</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="d-flex no-block card-body border-top">
-                        <i class="fa fa-leaf w-30px m-t-5"></i>
-                        <div>
-                            <a href="#" class="m-b-0 font-medium p-0">Envato approved Maruti Admin template</a>
-                            <span class="text-muted">i am very happy to approved by TF</span>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="tetx-right">
-                                <h5 class="text-muted m-b-0">20</h5>
-                                <span class="text-muted font-16">Jan</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="d-flex no-block card-body border-top">
-                        <i class="fa fa-question-circle w-30px m-t-5"></i>
-                        <div>
-                            <a href="#" class="m-b-0 font-medium p-0"> I am alwayse here if you have any question</a>
-                            <span class="text-muted">we glad that you choose our template</span>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="tetx-right">
-                                <h5 class="text-muted m-b-0">15</h5>
-                                <span class="text-muted font-16">Jan</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                    @endforeach
+
+                    @else
+                        <p class="text-center">Er zijn nog geen tickets aangemaakt</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -368,7 +296,7 @@
             },
             selectable: true,
             selectHelper: true,
-            defaultView: "agendaWeek",
+            defaultView: "month",
             timeFormat: 'H:mm',
 
             select: function (start, end, allDay) {
