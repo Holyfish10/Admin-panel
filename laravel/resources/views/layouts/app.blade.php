@@ -73,24 +73,13 @@
                             </ul>
 
                             <ul class="navbar-nav float-right">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left: -50px!important;">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="{{ url('/tickets') }}"> <i class="mdi mdi-bell font-24"></i><span style="margin-top: 1.5em!important; position: absolute; margin-left: -0.8em;" class="badge badge-success badge-sm">{{\App\Ticket::where('status', '=', 'Open')->count()}}</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                                    <a class="nav-link dropdown-toggle text-muted pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                        <a class="dropdown-item" href="#"><i class="ti-user m-r-5 m-l-5"></i> Mijn profiel</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -100,8 +89,6 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
-                                        <div class="dropdown-divider"></div>
-                                        <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded ml-3">View Profile</a></div>
                                     </div>
                                 </li>
                                 <!-- ============================================================== -->
@@ -121,14 +108,14 @@
 
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('home')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                                     <!-- Posts -->
-									@if(auth()->user()->email == 'jesseboer@hotmail.com')
+									@admin
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Nieuwsberichten </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ route('posts.index') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                             <li class="sidebar-item"><a href="{{ route('posts.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
-									@endif
+									@endadmin
                                     <!-- Websites -->
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-sitemap"></i><span class="hide-menu">Websites </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
@@ -143,20 +130,31 @@
                                             <li class="sidebar-item"><a href="{{ route('invoices.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
+                                    <!-- Timer -->
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('timer')}}" aria-expanded="false"><i class="fas fa-stopwatch"></i><span class="hide-menu">Uren tracker</span></a></li>
+                                    <!-- Klanten -->
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-box"></i><span class="hide-menu">Klanten </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ route('clients.index') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                             <li class="sidebar-item"><a href="{{ route('clients.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
+                                    <!-- tickets -->
                                     @admin
-                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-box"></i><span class="hide-menu">Tickets </span></a>
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-ticket-alt"></i><span class="hide-menu">Tickets </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ url('/tickets') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                         </ul>
                                     </li>
                                     @endadmin
+                                    <!-- users -->
+                                    @developer
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu">Gebruikers </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+                                            <li class="sidebar-item"><a href="{{ url('/users') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
+                                        </ul>
+                                    </li>
+                                    @enddeveloper
                                 </ul>
                             </nav>
                             <!-- End Sidebar navigation -->

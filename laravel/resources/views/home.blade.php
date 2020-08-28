@@ -207,6 +207,7 @@
                 </table>
             </div>
         </div>
+        @admin
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -224,7 +225,7 @@
                                 <div class="comment-footer">
                                     <span class="text-muted float-right">{{$ticket->created_at->format('d-m-Y')}}</span>
                                     <a href="mailto:{{$ticket->email}}"><button type="button" class="btn btn-primary btn-sm">E-mail sturen</button></a>
-                                    <a href="{{url('/tickets/'.$ticket->id.'/show')}}"><button type="button" class="btn btn-cyan btn-sm">Bekijken</button></a>
+                                    <a href="{{url('/tickets/'.$ticket->ticket_id)}}"><button type="button" class="btn btn-cyan btn-sm">Bekijken</button></a>
                                     <form action="{{ action('TicketsController@closeTicket', $ticket->ticket_id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je dit de ticket wilt sluiten?')">
                                         @csrf
                                         @method('POST')
@@ -241,6 +242,7 @@
                 </div>
             </div>
         </div>
+        @endadmin
     </div>
     <div class="row">
         <div class="col-md-12">
