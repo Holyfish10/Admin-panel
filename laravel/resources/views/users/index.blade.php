@@ -77,7 +77,7 @@
                                             <a href="{{ url('/users/'.$user->id.'/edit')  }}" class="btn btn-success"><i class="fa fa-pencil-alt"></i></a>
                                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?')">
                                                 @csrf
-                                                @method('POST')
+                                                @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
