@@ -79,7 +79,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-muted pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                        <a class="dropdown-item" href="#"><i class="ti-user m-r-5 m-l-5"></i> Mijn profiel</a>
+                                        <a class="dropdown-item" href="{{ route('Users.Settings') }}"><i class="ti-user m-r-5 m-l-5"></i> Mijn profiel</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();

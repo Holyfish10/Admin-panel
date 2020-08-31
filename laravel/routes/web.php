@@ -42,5 +42,5 @@ Route::delete('/tickets/{id}', 'TicketsController@destroy');
 Route::post('/tickets/{ticket_id}/close', 'TicketsController@closeTicket')->name('ticket.close');
 //UsersController
 Route::resource('users', 'UsersController');
-
-
+Route::get('/settings', 'UsersController@UserSettings')->name('Users.Settings');
+Route::post('/settings/save{id}', 'UsersController@editData')->name('Users.edit');

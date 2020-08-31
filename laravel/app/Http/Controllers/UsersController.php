@@ -6,7 +6,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class UsersController extends Controller
 {
@@ -139,5 +142,39 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect('/users')->with('success', 'Gebruiker is verwijderd');
+    }
+
+    public function UserSettings()
+    {
+        return view('users.accountSettings');
+    }
+
+    public function editData(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => '',
+            'email' => '',
+            'password' => '',
+            'role' => '',
+        ]);
+
+        $user = User::find($id);
+
+        if(!empty($request->input('name'))) {
+            $user->name = $request->input('name');
+        }
+
+        if(!empty($request->input('email'))) {
+            $user->email = $request->input('email');
+        }
+
+        if(!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->save();
+
+        //return to user settings page
+        return redirect('/settings');
     }
 }
