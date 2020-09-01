@@ -13,6 +13,7 @@ use App\Sites;
 use App\Client;
 use App\Todo;
 use App\Ticket;
+use App\Invoice;
 
 class HomeController extends Controller
 {
@@ -42,6 +43,8 @@ class HomeController extends Controller
         $clients = Client::all();
         $todo = Todo::all();
         $tickets = Ticket::orderBy('created_at')->where('status', '=', 'Open')->paginate(6);
+        $invoices = Invoice::where('status', '=', 2)
+                            ->where('user_id', auth()->user()->id);
 
         if(request()->ajax())
         {
@@ -53,7 +56,7 @@ class HomeController extends Controller
             return response()->json($data);
         }
 
-        return view('home', compact('users', 'events', 'post', 'posts', 'sites', 'clients', 'todo', 'tickets'));
+        return view('home', compact('users', 'events', 'post', 'posts', 'sites', 'clients', 'todo', 'tickets', 'invoices'));
     }
 
     public function projects()

@@ -22,7 +22,7 @@
 
         <div class="mb-3">@include('layouts.messages')</div>
 
-        <img src="{{ $post->image }}" alt="" style="height: 250px;" class="w-100 mb-4">
+        <img src="{{ asset('images/news/' . $post->image) }}" alt="" style="height: 250px;" class="w-100 mb-4">
         <h4 class="text-center">{{ Str::limit($post->title, 100) }}</h4>
         <p class="mt-5 mb-5">{!! Str::limit($post->message, 500) !!}</p>
 

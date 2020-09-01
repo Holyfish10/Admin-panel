@@ -155,9 +155,7 @@
                                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 
                                 data: 'ids='+strIds,
-
                                 success: function (data) {
-
                                     if (data['status']==true) {
                                         $(".checkbox:checked").each(function() {
                                             $(this).parents("tr").remove();
@@ -167,21 +165,14 @@
                                     } else {
                                         alert('Oeps er is iets fout gegaan, probeer het opnieuw!!');
                                     }
-
                                 },
-
                                 error: function (data) {
                                     alert(data.responseText);
                                 }
 
                             });
-
-
-
                         }
-
                     }
-
                 });
             });
 

@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Carbon;
 use \Illuminate\Support\Facades\Hash;
+use App\Role;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
-
-    public function __construct()
-    {
-        return $this->middleware('developer');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +20,10 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('id')->paginate(10);
-        $users->all();
+        if($request->user()->can('user-index')) {
+            $users = User::orderBy('id')->paginate(10);
+            $users->all();
+        }
 
         return view('users.index', compact('users'));
     }
@@ -34,9 +33,11 @@ class UsersController extends Controller
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('users.create');
+        if($request->user()->can('user-create')) {
+            return view('users.create');
+        }
     }
 
     /**
@@ -47,27 +48,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-           'name' => 'required|unique:users,name',
-           'email' => 'required|email|unique:users,email',
-           'password' => 'required|confirmed|min:6',
-           'created_at' => '',
-           'last_login' => '',
-           'role' => '',
-        ]);
+        if($request->user()->can('user-create')) {
+            $this->validate($request, [
+                'name' => 'required|unique:users,name',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|confirmed|min:6',
+                'created_at' => '',
+                'last_login' => '',
+            ]);
 
-        $user = new User;
+            $user = new User;
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->created_at = Carbon::now();
-        $user->last_login = Carbon::now();
-        $user->role = $request->input('role');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->created_at = Carbon::now();
+            $user->last_login = Carbon::now();
 
-        $user->save();
+            $user->save();
 
-        return redirect('/users')->with('success', 'Gebuiker is aangemaakt');
+            $role = $request->get('role');
+            $roles = new Role;
+            $roles->users()->attach($user->id, ['role_id' => $role]);
+
+            return redirect('/users')->with('success', 'Gebuiker is aangemaakt');
+        }
     }
 
     /**
@@ -89,11 +94,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        if($request->user()->can('user-edit')) {
+            $user = User::findOrFail($id);
 
-        return view('users.edit', compact('user'));
+            return view('users.edit', compact('user'));
+        }
     }
 
     /**
@@ -105,26 +112,26 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:users,name',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'confirmed:min6',
-            'role' => '',
-        ]);
+        if($request->user()->can('user-edit')) {
+            $this->validate($request, [
+                'name' => '',
+                'email' => '',
+                'password' => 'confirmed:min6',
+            ]);
 
-        $user = User::find($id);
+            $user = User::find($id);
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        if(!empty($request->input('password'))) {
-            $user->password = Hash::make($request->input('password'));
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+
+            $user->save();
+
+            DB::table('users_roles')
+                ->where('user_id', $user->id)
+                ->update(['role_id' => $request->get('role')]);
+
+            return redirect('/users')->with('success', 'Gebuiker is bewerkt');
         }
-
-        $user->role = $request->input('role');
-
-        $user->save();
-
-        return redirect('/users')->with('success', 'Gebuiker is bewerkt');
     }
 
     /**
@@ -133,11 +140,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->delete();
+        if($request->user()->can('user-delete')) {
+            $user = User::find($id);
+            $user->delete();
 
-        return redirect('/users')->with('success', 'Gebruiker is verwijderd');
+            return redirect('/users')->with('success', 'Gebruiker is verwijderd');
+        }
     }
 }

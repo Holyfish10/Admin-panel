@@ -26,15 +26,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Carbon::setLocale('nl');
-
-        //Admin middleware @admin
-        Blade::if('admin', function() {
-            return auth()->user()->role === 3;
-        });
-
-        //Developer middleware @developer
-        Blade::if('developer', function() {
-            return auth()->user()->role >= 2;
-        });
     }
 }

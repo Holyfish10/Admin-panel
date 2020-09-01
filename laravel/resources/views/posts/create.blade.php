@@ -28,8 +28,9 @@
               <input type="text" class="form-control" placeholder="Titel" name="title">
             <label for="content">Bericht</label>
               <textarea type="text" class="form-control" id="editor" placeholder="Je bericht" name="message"></textarea>
-            <label for="image">Image url</label>
-              <input type="text" class="form-control" placeholder="image URL" name="image">
+            <label for="image" class="mt-3">Image kiezen</label>
+              <input class="mt-3 d-flex" type="file" name="file">
+
           </div>
           {{ csrf_field() }}
           <input type="submit" value="Aanmaken" class="btn btn-info">
@@ -40,9 +41,19 @@
 
 @section('scripts')
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
         <script>
-                CKEDITOR.replace('editor');
+            let options = {
+                filebrowserImageBrowseUrl: '/filemanager?type=Images',
+                filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+            };
+
+            CKEDITOR.replace('editor', options);
+
+            $('#lfm').filemanager('image');
+            var route_prefix = "/filemanager";
+            $('#lfm').filemanager('image', {prefix: route_prefix});
         </script>
 @endsection
 

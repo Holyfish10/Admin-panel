@@ -47,6 +47,7 @@
                 <h5 class="card-title d-inline mt-5">Klanten</h5>
                 <div class="float-right">
                     <a href="{{ route('clients.create') }}" class="btn btn-success">Klant aanmaken</a>
+                    <a href="#" class="delete-all btn btn-danger">Selectie verwijderen</a>
                 </div>
             </div>
                 @if(count($clients) > 0)

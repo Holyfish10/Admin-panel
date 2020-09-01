@@ -12,23 +12,18 @@ use App\Ticket;
 
 class TicketsController extends Controller
 {
-
-
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     public function index()
     {
-        $tickets = Ticket::orderBy('created_at', 'desc')
-            ->where('status', '=', 'Open')
-            ->paginate(10);
+        if(auth()->user()->can('ticket-index')) {
+            $tickets = Ticket::orderBy('created_at', 'desc')
+                ->where('status', '=', 'Open')
+                ->paginate(10);
 
-        $tickets->closed = Ticket::where('status', '=', 'Gesloten')->count();
-        $tickets->open = $tickets->where('status', '=', 'Open')->count();
+            $tickets->closed = Ticket::where('status', '=', 'Gesloten')->count();
+            $tickets->open = $tickets->where('status', '=', 'Open')->count();
 
-        return view('tickets.index', compact('tickets'));
+            return view('tickets.index', compact('tickets'));
+        }
     }
 
     /**
@@ -76,11 +71,13 @@ class TicketsController extends Controller
 
     public function show($ticket_id)
     {
-        $tickets = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        if(auth()->user()->can('ticket-show')) {
+            $tickets = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
 
-        $catagory = $tickets->catagory;
+            $catagory = $tickets->catagory;
 
-        return view('tickets.show', compact('tickets', 'catagory'));
+            return view('tickets.show', compact('tickets', 'catagory'));
+        }
     }
 
     /**
@@ -94,16 +91,18 @@ class TicketsController extends Controller
 
     public function closeTicket($ticket_id, ticketMailer $mail)
     {
-        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        if(auth()->user()->can('ticket-destroy')) {
+            $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
 
-        $ticket->update(['status' => 'Gesloten']);
+            $ticket->update(['status' => 'Gesloten']);
 
-        $ticketOwn = $ticket->email;
+            $ticketOwn = $ticket->email;
 
-        $mail->sendTicketStatusNotification($ticketOwn, $ticket);
+            $mail->sendTicketStatusNotification($ticketOwn, $ticket);
 
 
-        return redirect('/tickets')->with('success', 'Ticket is gesloten!');
+            return redirect('/tickets')->with('success', 'Ticket is gesloten!');
+        }
     }
 
     /**
@@ -114,10 +113,11 @@ class TicketsController extends Controller
      */
     public function destroy($ticket_id)
     {
-        $tickets = Ticket::find($ticket_id);
-        $tickets->delete();
+        if(auth()->user()->can('ticket-destroy')) {
+            $tickets = Ticket::find($ticket_id);
+            $tickets->delete();
 
-        return redirect('/tickets')->with('success', 'Ticket is verwijderd!');
-
+            return redirect('/tickets')->with('success', 'Ticket is verwijderd!');
+        }
     }
 }

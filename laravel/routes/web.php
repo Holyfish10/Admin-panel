@@ -17,7 +17,7 @@ Route::post('todo/{id}/edit', 'TodoController@update');
 Route::resource('sites', 'SiteController');
 //InvoiceController
 Route::resource('invoices', 'InvoiceController');
-Route::delete('bulkDestroy', ['as'=>'invoices.multiple-delete','uses'=>'InvoiceController@bulkDestroy']);
+Route::delete('invoices/bulkDestroy', ['as'=>'invoices.multiple-delete','uses'=>'InvoiceController@bulkDestroy']);
 Route::get('/downloadPDF/{id}','InvoiceController@downloadPDF');
 //ClientController
 Route::resource('clients', 'ClientController');
@@ -42,5 +42,12 @@ Route::delete('/tickets/{id}', 'TicketsController@destroy');
 Route::post('/tickets/{ticket_id}/close', 'TicketsController@closeTicket')->name('ticket.close');
 //UsersController
 Route::resource('users', 'UsersController');
+//PermissionController
+Route::resource('permissions', 'PermissionController');
+Route::delete('permissions/bulkDestroy', ['as'=>'permissions.multiple-delete','uses'=>'PermissionsController@bulkDestroy']);
+//RoleController
+Route::resource('roles', 'RoleController');
+Route::delete('roles/bulkDestroy', ['as'=>'roles.multiple-delete','uses'=>'RoleController@bulkDestroy']);
+
 
 

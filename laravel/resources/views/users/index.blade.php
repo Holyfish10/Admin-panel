@@ -59,7 +59,6 @@
                             </thead>
                             <tbody class="customtable">
                             @foreach($users as $user)
-
                                 <tr>
                                     <th>
                                         <label class="customcheckbox">
@@ -69,8 +68,8 @@
                                     </th>
                                     <td>{{$user->name}}</td>
                                     <td><a href="mailto: {{$user->email}}">{{ $user->email }}</a></td>
-                                    <td>{{$user->role}}</td>
-                                    <td>{{$user->last_login->diffForHumans() ?? ''}}</td>
+                                    <td></td>
+                                    <td>{{$user->last_login->diffForHumans()}}</td>
                                     <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">

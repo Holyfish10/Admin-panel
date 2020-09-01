@@ -73,9 +73,11 @@
                             </ul>
 
                             <ul class="navbar-nav float-right">
+                                @if(auth()->user()->can('ticket-index')) {
                                 <li class="nav-item">
                                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="{{ url('/tickets') }}"> <i class="mdi mdi-bell font-24"></i><span style="margin-top: 1.5em!important; position: absolute; margin-left: -0.8em;" class="badge badge-success badge-sm">{{\App\Ticket::where('status', '=', 'Open')->count()}}</span></a>
                                 </li>
+                                @endif
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-muted pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
@@ -108,14 +110,14 @@
 
                                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('home')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                                     <!-- Posts -->
-									@admin
+                                    @role('admin')
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Nieuwsberichten </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ route('posts.index') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                             <li class="sidebar-item"><a href="{{ route('posts.create') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Aanmaken </span></a></li>
                                         </ul>
                                     </li>
-									@endadmin
+									@endrole
                                     <!-- Websites -->
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-sitemap"></i><span class="hide-menu">Websites </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
@@ -140,21 +142,36 @@
                                         </ul>
                                     </li>
                                     <!-- tickets -->
-                                    @admin
+                                    @if(auth()->user()->can('ticket-index'))
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-ticket-alt"></i><span class="hide-menu">Tickets </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ url('/tickets') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                         </ul>
                                     </li>
-                                    @endadmin
+                                    @endif
                                     <!-- users -->
-                                    @developer
+                                    @if(auth()->user()->can('user-index'))
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu">Gebruikers </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ url('/users') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
+                                            @role('admin')
+                                            <li class="sidebar-item"><a href="{{ url('/users/addpermission') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Rechten toevoegen </span></a></li>
+                                            @endrole
                                         </ul>
                                     </li>
-                                    @enddeveloper
+                                    @endif
+                                    @role('admin')
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="far fa-bell-slash"></i><span class="hide-menu">Rechten </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+                                            <li class="sidebar-item"><a href="{{ url('/permissions') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="far fa-address-book"></i><span class="hide-menu">Rollen </span></a>
+                                        <ul aria-expanded="false" class="collapse first-level">
+                                            <li class="sidebar-item"><a href="{{ url('/roles') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
+                                        </ul>
+                                    </li>
+                                    @endrole
                                 </ul>
                             </nav>
                             <!-- End Sidebar navigation -->

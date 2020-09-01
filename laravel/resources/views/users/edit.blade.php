@@ -37,15 +37,7 @@
                     <label for="content">Rol</label>
                     <div class="form-group">
                         <select name="role" class="custom-select form-control col-3">
-                            <option value="{{$user->role}}" selected>
-                                @if($user->role == 1)
-                                   Gebruiker
-                                @elseif($user->role == 2)
-                                    Developer
-                                @else
-                                    Administrator
-                                @endif
-                            </option>
+                            <option value="">Kies een role ...</option>
                             <option value="1">Gebruiker</option>
                             <option value="2">Developer</option>
                             <option value="3">Administrator</option>

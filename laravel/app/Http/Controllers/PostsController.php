@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Post;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
 
     public function __construct()
     {
-		return $this->middleware('admin');
+        return $this->middleware('role:admin');
     }
 
     /**
@@ -31,11 +32,14 @@ class PostsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('posts.create');
+        if($request->user()->can('news-create')) {
+            return view('posts.create');
+        }
     }
 
     /**
@@ -47,32 +51,41 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-           'title' => '',
-           'message' => '',
-           'image' => '',
-           'user_id' => '',
-        ]);
+        if($request->user()->can('news-create')) {
+            $this->validate($request, [
+                'title' => '',
+                'message' => '',
+                'image' => '',
+                'user_id' => '',
+            ]);
 
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->message = $request->input('message');
-        if(!empty($request->input('image'))) {
-            $post->image = $request->input('image');
-        } else {
-            $post->image = 'https://nationalvisionnews.com/uploads/news-default.png	';
+            $post = new Post;
+            $post->title = $request->input('title');
+            $post->message = $request->input('message');
+
+            if ($request->file('file')) {
+                $imagePath = $request->file('file');
+                $imageName = $imagePath->getClientOriginalName();
+
+                $request->file('file')->move(public_path('/images/news/'), $imageName);
+
+                $post->image = $imageName;
+            } else {
+                $post->image = 'news-default.png';
+            }
+
+            $post->user_id = auth()->user()->id;
+
+            $post->save();
+
+            return redirect('/posts')->with('success', 'Bericht is aangemaakt');
         }
-        $post->user_id = auth()->user()->id;
-
-        $post->save();
-
-        return redirect('posts')->with('success', 'Bericht is aangemaakt');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -84,14 +97,16 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $post = Post::find($id);
+        if($request->user()->can('news-edit')) {
+            $post = Post::find($id);
 
-        return view('posts.edit', compact('post'));
+            return view('posts.edit', compact('post'));
+        }
     }
 
     /**
@@ -104,42 +119,50 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => '',
-            'message' => '',
-            'image' => '',
-            'user_id' => '',
-        ]);
+        if($request->user()->can('news-edit')) {
+            $this->validate($request, [
+                'title' => '',
+                'message' => '',
+                'image' => '',
+                'user_id' => '',
+            ]);
 
-        $post = Post::find($id);
-        $post->title = $request->input('title');
-        $post->message = $request->input('message');
-        $post->image = $request->input('image');
-        $post->user_id = auth()->user()->id;
+            $post = Post::find($id);
+            $post->title = $request->input('title');
+            $post->message = $request->input('message');
 
-        $post->save();
+            if ($request->file('file')) {
+                $imagePath = $request->file('file');
+                $imageName = $imagePath->getClientOriginalName();
 
-        return redirect('posts/'.$post->id)->with('success', 'Bericht is bewerkt');
+                $request->file('file')->move(public_path('/images/news/'), $imageName);
+
+                $post->image = $imageName;
+            } else {
+                $post->image = 'news-default.png';
+            }
+
+            $post->user_id = auth()->user()->id;
+
+            $post->save();
+
+            return redirect('/posts/' . $post->id)->with('success', 'Nieuws bericht is bijgewerkt');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $post = Post::find($id);
-        $post->delete();
+        if($request->user()->can('news-destroy')) {
+            $post = Post::find($id);
+            $post->delete();
 
-        return redirect('/')->with('success', 'Bericht is verwijderd');
-    }
-
-    public function test()
-    {
-        $test = 'test';
-
-        return view('components.test-component', compact('test'));
+            return redirect('/')->with('success', 'Bericht is verwijderd');
+        }
     }
 }

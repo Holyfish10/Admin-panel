@@ -46,7 +46,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-warning text-center">
                                     <h1 class="font-light text-white"><i class="far fa-envelope"></i></h1>
-                                    <h6 class="text-white">{{$post->count()}} Nieuwsberichten</h6>
+                                    <h6 class="text-white"> {{$invoices->count()}}  Openstaande facturen</h6>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                 </table>
             </div>
         </div>
-        @admin
+        @if(auth()->user()->can('ticket-index'))
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -242,7 +242,7 @@
                 </div>
             </div>
         </div>
-        @endadmin
+        @endif
     </div>
     <div class="row">
         <div class="col-md-12">

@@ -20,16 +20,16 @@
 
         <div class="container p-5">
             <h3>Nieuwsbericht bewerken</h3>
-            <form action="{{action('PostsController@update', $post->id)}}" method="POST">
+            <form action="{{action('PostsController@update', $post->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" placeholder="Titel" name="title" value="{{ $post->title }}">
+                        <input type="text" class="form-control" placeholder="Titel" name="title" value="{{ $post->title }}">
                     <label for="content">Bericht</label>
-                    <textarea type="text" class="form-control" id="editor" placeholder="Je bericht" name="message" value="{{ $post->message }}">{{ $post->message }}</textarea>
-                    <label for="image">Image url</label>
-                    <input type="text" class="form-control" placeholder="image URL" name="image" value="{{ $post->image }}">
+                        <textarea type="text" class="form-control" id="editor" placeholder="Je bericht" name="message" value="{{ $post->message }}">{{ $post->message }}</textarea>
+                    <label for="image" class="mt-3">Image kiezen</label>
+                        <input class="mt-3 d-flex form-control" type="file" name="file">
                 </div>
                 {{ csrf_field() }}
                 <input type="submit" value="Updaten" class="btn btn-info">
