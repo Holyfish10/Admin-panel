@@ -65,4 +65,9 @@ class HomeController extends Controller
         return view('projects.index', compact('count'));
     }
 
+    public function error()
+    {
+        return view('layouts.error');
+    }
+
 }

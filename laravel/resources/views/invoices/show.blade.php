@@ -74,7 +74,7 @@
                 $amount = unserialize($invoice->amount);
                 $totalPrice = $invoice->total;
 
-                $price = 20;
+                $price = $invoice->user->wage;
                 $total = 0;
             ?>
 
@@ -83,8 +83,10 @@
                 <?php
                 if($totalPrice == NULL) {
                   $total += ($price * $amount[$key]);
+                  $vat = $total / 100 * ($invoice->user->vat);
                 } else {
                     $total = $totalPrice;
+                    $vat = $total / 100 * ($invoice->user->vat);
                 }
                 ?>
 
@@ -114,7 +116,25 @@
                 <td></td>
                 <td></td>
                 <td>
-                    Totaal: <span class="ml-2">€ {{ number_format($total, 2, '.', '') }} </span>
+                    Excl BTW: <span class="ml-2">€ {{ number_format($total, 2, '.', '') }} </span>
+                </td>
+            </tr>
+
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    BTW: <span class="ml-2">€ {{$vat}}</span>
+                </td>
+            </tr>
+
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    Totaal: <span class="ml-2">€ {{ number_format($total + $vat, 2, '.', '') }} </span>
                 </td>
             </tr>
         </table>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 //Register false
 Auth::routes(['register' => false]);
@@ -42,12 +43,15 @@ Route::delete('/tickets/{id}', 'TicketsController@destroy');
 Route::post('/tickets/{ticket_id}/close', 'TicketsController@closeTicket')->name('ticket.close');
 //UsersController
 Route::resource('users', 'UsersController');
+Route::get('/users/{id}/settings', 'UsersController@UserSettings')->name('users.settings');
+Route::post('/users/{id}/edit','UsersController@editData');
 //PermissionController
 Route::resource('permissions', 'PermissionController');
 Route::delete('permissions/bulkDestroy', ['as'=>'permissions.multiple-delete','uses'=>'PermissionsController@bulkDestroy']);
 //RoleController
 Route::resource('roles', 'RoleController');
 Route::delete('roles/bulkDestroy', ['as'=>'roles.multiple-delete','uses'=>'RoleController@bulkDestroy']);
+Route::post('roles/{id}/updateRolePermission', 'RoleController@updateRolePermission');
 
-
-
+//Error view
+Route::get('/error', 'HomeController@error');

@@ -73,7 +73,7 @@
                             </ul>
 
                             <ul class="navbar-nav float-right">
-                                @if(auth()->user()->can('ticket-index')) {
+                                @if(auth()->user()->can('ticket-index'))
                                 <li class="nav-item">
                                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="{{ url('/tickets') }}"> <i class="mdi mdi-bell font-24"></i><span style="margin-top: 1.5em!important; position: absolute; margin-left: -0.8em;" class="badge badge-success badge-sm">{{\App\Ticket::where('status', '=', 'Open')->count()}}</span></a>
                                 </li>
@@ -81,7 +81,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-muted pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                        <a class="dropdown-item" href="#"><i class="ti-user m-r-5 m-l-5"></i> Mijn profiel</a>
+                                        <a class="dropdown-item" href="{{ route('users.settings', auth()->user()->id) }}"><i class="ti-user m-r-5 m-l-5"></i> Mijn profiel</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();

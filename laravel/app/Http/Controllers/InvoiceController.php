@@ -103,14 +103,18 @@ class InvoiceController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function show($id)
     {
         $clients = Client::find($id);
         $invoice = Invoice::find($id);
 
-        return view('invoices.show', compact( 'clients', 'invoice'));
+        if($invoice->user->wage == 0) {
+            return redirect('error');
+        } else {
+            return view('invoices.show', compact('clients', 'invoice'));
+        }
     }
 
     /**
@@ -263,6 +267,7 @@ class InvoiceController extends Controller
     public function downloadPDF($id)
     {
         $invoice = Invoice::find($id);
+
         $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
 
         return $pdf->download(date('Y') . '-' . $id . '.pdf');

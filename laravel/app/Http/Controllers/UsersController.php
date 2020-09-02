@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Hash;
-use App\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use App\User;
+use App\Role;
 
 class UsersController extends Controller
 {
@@ -117,12 +119,27 @@ class UsersController extends Controller
                 'name' => '',
                 'email' => '',
                 'password' => 'confirmed:min6',
+                'wage' => '',
+                'vat' => '',
             ]);
 
             $user = User::find($id);
 
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
+            if(!empty($request->input('name'))) {
+                $user->name = $request->input('name');
+            }
+
+            if(!empty($request->input('email'))) {
+                $user->email = $request->input('email');
+            }
+
+            if(!empty($request->input('wage'))) {
+                $user->wage = $request->input('wage');
+            }
+
+            if(!empty($request->input('vat'))) {
+                $user->vat = $request->input('vat');
+            }
 
             $user->save();
 
@@ -148,5 +165,68 @@ class UsersController extends Controller
 
             return redirect('/users')->with('success', 'Gebruiker is verwijderd');
         }
+    }
+
+    public function UserSettings($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        $role = DB::table('users_roles')->where('user_id', $user->id)->get();
+
+        foreach($role as $current) {
+            $current = [
+              'role_id' => $current->role_id,
+              'user_id' => $current->user_id,
+            ];
+        }
+
+        $currentRole = $current;
+
+
+        return view('users.settings', compact('user', 'roles', 'currentRole'));
+    }
+
+    public function editData(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'exists:users,name',
+            'email' => 'exists:users,email',
+            'password' => 'min:6|confirmed|nullable',
+            'wage' => 'numeric|min:0',
+            'vat' => 'numeric|min:0',
+            'role' => '',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if(!empty($request->input('name'))) {
+            $user->name = $request->input('name');
+        }
+
+        if(!empty($request->input('email'))) {
+            $user->email = $request->input('email');
+        }
+
+        if(!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+       $user->wage = $request->input('wage');
+       $user->vat = $request->input('vat');
+
+
+
+        $user->save();
+
+        if($request->user()->can('user-editRole')) {
+            if(!empty($request->input('role'))) {
+                DB::table('users_roles')
+                    ->where('user_id', $user->id)
+                    ->update(['role_id' => $request->get('role')]);
+            }
+        }
+
+        //return to user settings page
+        return redirect()->back()->with('success','Gegevens zijn bijgewerkt');
     }
 }

@@ -73,7 +73,7 @@
                                     <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ url('/users/'.$user->id.'/edit')  }}" class="btn btn-success"><i class="fa fa-pencil-alt"></i></a>
+                                            <a href="{{ url('/users/'.$user->id.'/settings')  }}" class="btn btn-success"><i class="fa fa-pencil-alt"></i></a>
                                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             @else
-                <p class="text-center">Er zijn nog geen gebruikers aangemaakt</p>
+                <p class="text-center">Er zijn nog geen settings aangemaakt</p>
             @endif
 
 
