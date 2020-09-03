@@ -21,7 +21,7 @@
     <div class="container p-5">
 
         <div class="col-12">
-            <div class="mb-3">@include('layouts.messages')</div>
+            @include('layouts.messages')
         </div>
 
         <div class="card" style="font-family: Nunito-sans, sans-serif">
@@ -59,10 +59,10 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ url('/permissions/'.$permission->permission_id.'/edit')  }}" class="btn btn-primary mr-1"><i class="fa fa-pencil-alt"></i></a>
-                                    <form action="" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je deze rechten wilt verwijderen?')">
+                                    <form action="{{action('RoleController@destroyPermission', $permission->role_id)}}" method="POST" style="display: inline;" onclick="return confirm('Weet je zeker dat je deze rechten wilt verwijderen?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button type="submit" value="{{$permission->id}}" name="permission" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -71,10 +71,10 @@
                     </tbody>
                 </table>
 
-                <form action="{{action('RoleController@updateRolePermission', $permission->role_id)}}" method="POST">
-                @csrf
-                @method('POST')
                 <!-- Modal add permission -->
+                <form action="{{action('RoleController@updateRolePermission', $role->id)}}" method="POST">
+                    @csrf
+                    @method('POST')
                     <div class="modal fade" id="addPerm" tabindex="-1" role="dialog" aria-labelledby="addPerm" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -85,23 +85,72 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <select name="permission" id="">
+                                    <select name="permission_id" class="form-control">
                                         @foreach($allPerm as $permission)
-                                            <option value="{{$permission->id}}">{{ $permission->id }} - {{$permission->name}}</option>
+                                            <option value="{{$permission->id}}" class="ml-5">{{ $permission->id }} - {{$permission->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                                    <button type="submit" class="update btn btn-primary">Opslaan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.delete-all').on('click', function(e) {
+                var idsArr = [];
+                $(".checkbox:checked").each(function() {
+                    idsArr.push($(this).attr('data-id'));
+                });
+
+                if(idsArr.length <=0)
+                {
+                    alert("Selecteer een of meer velden om te verwijderen.");
+                }  else {
+                    if(confirm("Weet je zeker dat je dit wilt verwijderen?")){
+
+                        var strIds = idsArr.join(",");
+
+                        $.ajax({
+
+                            url: "{{ route('roles.multiple-delete') }}",
+
+                            type: 'DELETE',
+
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                            data: 'ids='+strIds,
+                            success: function (data) {
+                                if (data['status']==true) {
+                                    $(".checkbox:checked").each(function() {
+                                        $(this).parents("tr").remove();
+                                    });
+                                    alert(data['success']);
+                                    location.reload();
+                                } else {
+                                    alert('Oeps er is iets fout gegaan, probeer het opnieuw!!');
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+
+                        });
+                    }
+                }
+            });
+        });
+
+    </script>
+@endsection
 @endsection

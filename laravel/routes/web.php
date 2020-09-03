@@ -52,6 +52,7 @@ Route::delete('permissions/bulkDestroy', ['as'=>'permissions.multiple-delete','u
 Route::resource('roles', 'RoleController');
 Route::delete('roles/bulkDestroy', ['as'=>'roles.multiple-delete','uses'=>'RoleController@bulkDestroy']);
 Route::post('roles/{id}/updateRolePermission', 'RoleController@updateRolePermission');
+Route::delete('roles/{id}/destroyPermission','RoleController@destroyPermission');
 
 //Error view
 Route::get('/error', 'HomeController@error');

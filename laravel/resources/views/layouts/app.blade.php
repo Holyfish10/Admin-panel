@@ -19,6 +19,8 @@
     <!-- Custom CSS -->
     <link href="{{ asset('css/style.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/extra-libs/multicheck/multicheck.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -220,6 +222,7 @@
         <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js') }}"></script>
         <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js') }}"></script>
         <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js') }}"></script>
+
 
         @yield('scripts')
 
