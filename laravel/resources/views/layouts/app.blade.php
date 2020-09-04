@@ -162,18 +162,20 @@
                                         </ul>
                                     </li>
                                     @endif
-                                    @role('admin')
+                                    @if(auth()->user()->can('permissions-index'))
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="far fa-bell-slash"></i><span class="hide-menu">Rechten </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ url('/permissions') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                         </ul>
                                     </li>
+                                    @endif
+                                    @if(auth()->user()->can('role-index'))
                                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="far fa-address-book"></i><span class="hide-menu">Rollen </span></a>
                                         <ul aria-expanded="false" class="collapse first-level">
                                             <li class="sidebar-item"><a href="{{ url('/roles') }}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Overzicht </span></a></li>
                                         </ul>
                                     </li>
-                                    @endrole
+                                    @endif
                                 </ul>
                             </nav>
                             <!-- End Sidebar navigation -->
