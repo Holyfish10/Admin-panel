@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+
     <div class="auth-box bg-dark border-top border-secondary">
+        <div class="col-12">
+            <div class="mb-3">@include('layouts.messages')</div>
+        </div>
         <div id="loginform">
             <div class="text-center p-t-20 p-b-20">
                 <span class="db"><img src="{{asset('assets/images/logo.png') }}" alt="logo" /></span>
@@ -46,13 +50,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group d-flex justify-content-center">
-                            <label for="modal-button">Neem contact op:</label>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col-12">--}}
+{{--                        <div class="form-group d-flex justify-content-center">--}}
+{{--                            <label for="modal-button"><span class="text-white font-weight-bold mb-0">Neem contact op:</span></label>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group d-flex justify-content-center">
@@ -67,13 +71,23 @@
     </div>
 </div>
 
-{{--    contact modal   --}}
+<div class="row">
+    <div class="col-12">
+        <div class="form-group d-flex justify-content-center">
+            <label for="modal-button"><span class="text-white font-weight-bold mb-0">Neem contact op:</span></label>
+        </div>
+    </div>
+</div>
 
+{{--    contact modal   --}}
+<form action="{{ route('tickets.contact') }}" method="POST">
+    @csrf
+    @method('POST')
 <div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contact-modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Neem contact op</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -82,24 +96,30 @@
                 <form>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email adres</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="example@mail.nl">
+                        <input type="email" class="form-control" name="mail" placeholder="example@mail.nl">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Naam</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="voornaam + achternaam">
+                        <input type="text" class="form-control" name="name"  placeholder="voornaam + achternaam">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Tel. nummer</label>
+                        <input type="text" class="form-control" name="phone"  placeholder="+316 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Onderwerp: </label>
+                        <input type="text" class="form-control" name="title"  placeholder="Wat is uw vraag?">
                     </div>
                     <div class="form-group">
                         <label for="text-area">Betreft:</label>
-                        <textarea class="form-control" id="text-area" rows="3"></textarea>
+                        <textarea class="form-control" id="text-area" name="content" rows="3"></textarea>
                     </div>
-                    <a href="/tickets/contact">
                         <button type="submit" class="btn btn-primary">indienen</button>
-                    </a>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
+</form>
 
 @endsection

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Mail\Mailer;
 
 class ticketMailer {
     protected $mailer;
-    protected $fromAddress = 'jdebdev091994@gmail.com';
+    protected $fromAddress = 'info@jdebcode.nl';
     protected $fromName = 'Support ticket';
     protected $to;
     protected $subject;
@@ -28,7 +28,7 @@ class ticketMailer {
 
     public function sendTicketInformation($user, Ticket $ticket)
     {
-        $this->to = $user->email;
+        $this->to = request()->input('mail');
         $this->subject = "[Ticket ID: $ticket->ticket_id] $ticket->title ";
         $this->view = 'emails.ticket-info';
         $this->data = compact('user', 'ticket');

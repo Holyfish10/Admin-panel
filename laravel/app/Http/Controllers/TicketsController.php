@@ -121,15 +121,29 @@ class TicketsController extends Controller
         }
     }
 
-    public function contact(Request $request)
+    public function contact(Request $request, ticketMailer $mail)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'mail' => 'required',
             'name' => 'required',
-            'body' => ''
+            'telephone' => '',
+            'title' => 'required',
+            'content' => 'required',
         ]);
 
-//        return redirect();
+        $tickets = new Ticket();
+        $tickets->name = $request->input('name');
+        $tickets->email = $request->input('mail');
+        $tickets->phone = $request->input('phone');
+        $tickets->title = $request->input('title');
+        $tickets->ticket_id = strtoupper(Str::random(10));
+        $tickets->content = $request->input('content');
+        $tickets->status = "Open";
+
+        $tickets->save();
+        $mail->sendTicketInformation($tickets->email, $tickets);
+
+        return redirect()->back()->with('success', "Een ticket met ID: $tickets->ticket_id is geopend");
     }
 
 
