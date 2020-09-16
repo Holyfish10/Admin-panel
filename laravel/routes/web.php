@@ -41,6 +41,7 @@ Route::post('/tickets/create', 'TicketsController@store')->name('tickets.store')
 Route::get('/tickets/{ticket_id}', 'TicketsController@show')->name('tickets.show');
 Route::delete('/tickets/{id}', 'TicketsController@destroy');
 Route::post('/tickets/{ticket_id}/close', 'TicketsController@closeTicket')->name('ticket.close');
+Route::get('tickets/contact', 'ticketcontroller@contact');
 //UsersController
 Route::resource('users', 'UsersController');
 Route::get('/users/{id}/settings', 'UsersController@UserSettings')->name('users.settings');

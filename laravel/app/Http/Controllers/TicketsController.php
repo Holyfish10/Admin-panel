@@ -120,4 +120,18 @@ class TicketsController extends Controller
             return redirect('/tickets')->with('success', 'Ticket is verwijderd!');
         }
     }
+
+    public function contact(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'name' => 'required',
+            'body' => ''
+        ]);
+
+//        return redirect();
+    }
+
+
+
 }

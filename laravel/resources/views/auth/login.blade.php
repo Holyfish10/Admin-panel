@@ -46,7 +46,58 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group d-flex justify-content-center">
+                            <label for="modal-button">Neem contact op:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group d-flex justify-content-center">
+                            <button id="modal-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#contact-modal">
+                                contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </form>
+        </div>
+    </div>
+</div>
+
+{{--    contact modal   --}}
+
+<div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contact-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email adres</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="example@mail.nl">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Naam</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="voornaam + achternaam">
+                    </div>
+                    <div class="form-group">
+                        <label for="text-area">Betreft:</label>
+                        <textarea class="form-control" id="text-area" rows="3"></textarea>
+                    </div>
+                    <a href="/tickets/contact">
+                        <button type="submit" class="btn btn-primary">indienen</button>
+                    </a>
+
+                </form>
+            </div>
         </div>
     </div>
 </div>
